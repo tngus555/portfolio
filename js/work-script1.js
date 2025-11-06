@@ -1,0 +1,814 @@
+// 1. Banner 섹션을 위한 전역 변수 및 데이터
+
+let currentIndex = 0;
+let totalCards = 0;
+let bnCards; // DOM 요소를 저장할 변수 (DOMContentLoaded에서 할당)
+let currentRotation = 0; // big-waterdrop의 현재 회전 각도 (0도에서 시작)
+
+const contents = [
+  {
+    title: "YOSIGO",
+    tag: "#Graphic",
+    description:
+      "Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간, 요시고 사진전에서 만나는 휴식의 순간을 표현했습니다.",
+    period: "3 Hours",
+    tools: ["Ps", "Ai"],
+    images: {
+      image1: "./img/bnr-yosigo (2).png",
+      image2: "./img/bnr-yosigo (1).png",
+      image3: "./img/bnr-yosigo.png",
+    },
+  },
+  {
+    title: "BURGERKING",
+    tag: "#Graphic",
+    description:
+      "화끈한 멕시코의 매운 맛을 느낄 수 있는 텍사스 칠리 와퍼 베너입니다",
+    period: "3 Hours",
+    tools: ["Ai", "Ps"],
+    images: {
+      image1: "./img/bnr-burgerking (2).png",
+      image2: "./img/bnr-burgerking (3).png",
+      image3: "./img/bnr-burgerking.png",
+    },
+  },
+  {
+    title: "PETHROOM",
+    tag: "#Graphic",
+    description:
+      "고양이를 가족처럼 생각하는 마음을 담아, 우리 아이에게도 안전한 Pethroom 모래를 소개하는 이벤트 배너입니다.",
+    period: "3 Hours",
+    tools: ["Figma", "Ps"],
+    images: {
+      image1: "./img/bnr-pethroom (2).png",
+      image2: "./img/bnr-pethroom (1).png",
+      image3: "./img/bnr-pethroom.png",
+    },
+  },
+  {
+    title: "서울강남치과",
+    tag: "#Graphic",
+    description:
+      "누런 치아를 환한 화이트 치아로 변화시켜주는 ‘화이트 스마일 프로젝트’ 이벤트 배너입니다. 혜택 정보를 강조하고, 간편 상담을 자연스럽게 유도할 수 있도록 디자인했습니다.",
+    period: "3 Hours",
+    tools: ["InD", "Ps"],
+    images: {
+      image1: "./img/bnr-dental (2).png",
+      image2: "./img/bnr-dental (3).png",
+      image3: "./img/bnr-dental.png",
+    },
+  },
+  {
+    title: "KOREAN AIR",
+    tag: "#Graphic",
+    description:
+      "얼리버드 고객에게 다양한 혜택을 제공하는 항공권 이벤트 배너입니다. 티켓 디자인을 활용해 여행을 떠나고 싶은 설렘을 담았습니다.",
+    period: "3 Hours",
+    tools: ["Ai", "Ps"],
+    images: {
+      image1: "./img/bnr-korean-air (3).png",
+      image2: "./img/bnr-korean-air (2).png",
+      image3: "./img/bnr-korean-air.png",
+    },
+  },
+  {
+    title: "RNU UP",
+    tag: "#Graphic",
+    description:
+      "Running Crew 모집을 위한 배너 디자인입니다. 푸른 잔디와 역동적인 러닝 모델을 통해 활기차고 건강한 이미지를 강조했습니다.",
+    period: "3 Hours",
+    tools: ["AE", "Ps"],
+    images: {
+      image1: "./img/bnr-running (3).png",
+      image2: "./img/bnr-running (1).png",
+      image3: "./img/bnr-running.png",
+    },
+  },
+  {
+    title: "PROJECT 07",
+    tag: "#Graphic",
+    description:
+      "독창적인 일러스트레이션으로 브랜드 스토리를 표현한 프로젝트입니다.",
+    period: "3 Hours",
+    tools: ["Ai", "Ps"],
+    images: {
+      image1: "./img/bnr-br (2).png",
+      image2: "./img/bnr-br (1).png",
+      image3: "./img/Samsung-Galaxy Tab.png",
+    },
+  },
+  {
+    title: "OFD & STARBUCKS Ver.1",
+    tag: "#Graphic",
+    description: "OLD FERRY DONUT & STARBUCKS |",
+    period: "3 Hours",
+    tools: ["Ps", "Lr"],
+    images: {
+      image1: "./img/bnr-old (2).png",
+      image2: "./img/bnr-old (1).png",
+      image3: "./img/bnr-old.png",
+    },
+  },
+  {
+    title: "OFD & STARBUCKS Ver.2",
+    tag: "#Graphic",
+    description: "여름의 청량함과 빈티지한 감성을 함께 표현한 디자인입니다.",
+    period: "3 Hours",
+    tools: ["Ai", "InD"],
+    images: {
+      image1: "./img/bnr-old-ferry (2).png",
+      image2: "./img/bnr-old-ferry (1).png",
+      image3: "./img/bnr-old-ferry.png",
+    },
+  },
+  {
+    title: "BASKIN ROBBINS",
+    tag: "#Graphic",
+    description:
+      "많은 사람들의 최애였던 ‘엄마는 외계인’에 한층 더 진한 초콜릿 풍미를 더해, 새로운 느낌으로 재해석했습니다.",
+    period: "3 Hours",
+    tools: ["Ai", "Ps"],
+    images: {
+      image1: "./img/bnr-br (2).png",
+      image2: "./img/bnr-br (1).png",
+      image3: "./img/bnr-br.png",
+    },
+  },
+];
+
+// 2. Main Content Slider Data (전역 변수로 선언)
+const sliderData = [
+  {
+    title: "01. STEINWAY",
+    badges: ["리디자인", "웹디자인"],
+    description:
+      "170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이. 조금 더 깔끔한 디자인으로 웹 리디자인을 하였습니다.",
+    meta: "팀작업 | <strong>디자인 100%</strong>",
+    tools: ["icon-photoshop.png", "icon-illustrator.png", "icon-figma.png"],
+    image: "./img/STEINWAY-img.png",
+    designContent: {
+      title: "STEINWAY Design Concept",
+      content:
+        "클래식한 피아노 브랜드의 품격을 유지하면서도 현대적인 감각을 더한 디자인 컨셉입니다. 타이포그래피와 여백을 활용하여 고급스러운 느낌을 표현했습니다.",
+    },
+    processContent: {
+      title: "STEINWAY Workflow & Process",
+      content:
+        "1. 리서치 및 분석 → 2. 와이어프레임 제작 → 3. UI 디자인 → 4. 프로토타입 테스트 → 5. 최종 디자인 완성",
+    },
+  },
+  {
+    title: "02. PROJECT",
+    badges: ["UI/UX", "웹디자인", "프론트엔드"],
+    description:
+      "사용자 경험을 최우선으로 고려한 반응형 웹 디자인 프로젝트입니다.",
+    meta: "개인작업 | <strong>디자인 & 개발 100%</strong>",
+    tools: ["icon-figma.png", "icon-photoshop.png"],
+    image: "./img/MainContentImg.png",
+    designContent: {
+      title: "PROJECT 02 Design Concept",
+      content:
+        "사용자 중심의 직관적인 인터페이스 디자인을 목표로 했습니다. 반응형 레이아웃과 접근성을 고려한 컬러 스킴을 적용했습니다.",
+    },
+    processContent: {
+      title: "PROJECT 02 Workflow & Process",
+      content:
+        "1. 사용자 리서치 → 2. 페르소나 정의 → 3. 정보구조 설계 → 4. UI 디자인 → 5. 프론트엔드 개발 → 6. 테스트 및 피드백",
+    },
+  },
+  {
+    title: "03. BRANDING",
+    badges: ["브랜딩", "아이덴티티", "패키지"],
+    description:
+      "브랜드의 가치와 비전을 시각적으로 표현한 통합 브랜딩 프로젝트입니다.",
+    meta: "팀작업 | <strong>디자인 80%</strong>",
+    tools: ["icon-illustrator.png", "icon-photoshop.png"],
+    image: "./img/Samsung-Galaxy Tab.png",
+    designContent: {
+      title: "BRANDING Design Concept",
+      content:
+        "브랜드의 핵심 가치를 시각적으로 표현하기 위해 심볼과 로고타입을 개발했습니다. 일관된 컬러 시스템과 타이포그래피로 브랜드 아이덴티티를 구축했습니다.",
+    },
+    processContent: {
+      title: "BRANDING Workflow & Process",
+      content:
+        "1. 브랜드 분석 → 2. 컨셉 개발 → 3. 로고 디자인 → 4. 컬러/폰트 시스템 → 5. 어플리케이션 디자인 → 6. 가이드라인 제작",
+    },
+  },
+  {
+    title: "04. MOBILE APP",
+    badges: ["모바일", "앱디자인", "프로토타입"],
+    description:
+      "직관적인 인터페이스와 사용자 친화적인 모바일 앱 디자인입니다.",
+    meta: "개인작업 | <strong>디자인 100%</strong>",
+    tools: ["icon-figma.png"],
+    image: "./img/Samsung-Galaxy Tab.png",
+    designContent: {
+      title: "MOBILE APP Design Concept",
+      content:
+        "모바일 환경에 최적화된 UI/UX를 설계했습니다. 제스처 기반 인터랙션과 직관적인 네비게이션으로 사용성을 극대화했습니다.",
+    },
+    processContent: {
+      title: "MOBILE APP Workflow & Process",
+      content:
+        "1. 사용자 시나리오 작성 → 2. 와이어프레임 → 3. UI 디자인 → 4. 인터랙션 디자인 → 5. 프로토타입 제작 → 6. 사용자 테스트",
+    },
+  },
+  {
+    title: "05. EDITORIAL",
+    badges: ["에디토리얼", "출판", "레이아웃"],
+    description:
+      "가독성과 심미성을 모두 갖춘 에디토리얼 디자인 프로젝트입니다.",
+    meta: "팀작업 | <strong>디자인 60%</strong>",
+    tools: ["icon-photoshop.png", "icon-illustrator.png"],
+    image: "./img/Samsung-Galaxy Tab.png",
+    designContent: {
+      title: "EDITORIAL Design Concept",
+      content:
+        "타이포그래피와 그리드 시스템을 활용한 에디토리얼 디자인입니다. 가독성을 해치지 않으면서도 시각적으로 흥미로운 레이아웃을 구성했습니다.",
+    },
+    processContent: {
+      title: "EDITORIAL Workflow & Process",
+      content:
+        "1. 콘텐츠 분석 → 2. 그리드 시스템 설정 → 3. 타이포그래피 선정 → 4. 레이아웃 디자인 → 5. 이미지 편집 → 6. 인쇄 준비",
+    },
+  },
+  {
+    title: "06. MOTION",
+    badges: ["모션그래픽", "애니메이션", "영상"],
+    description:
+      "다이나믹한 움직임으로 스토리를 전달하는 모션 그래픽 프로젝트입니다.",
+    meta: "개인작업 | <strong>디자인 & 제작 100%</strong>",
+    tools: ["icon-photoshop.png", "icon-illustrator.png", "icon-figma.png"],
+    image: "./img/Samsung-Galaxy Tab.png",
+    designContent: {
+      title: "MOTION Design Concept",
+      content:
+        "브랜드 스토리를 효과적으로 전달하기 위한 모션 그래픽 디자인입니다. 타이밍과 이징을 활용하여 자연스러운 움직임을 표현했습니다.",
+    },
+    processContent: {
+      title: "MOTION Workflow & Process",
+      content:
+        "1. 스토리보드 작성 → 2. 스타일 프레임 제작 → 3. 애니메이션 제작 → 4. 사운드 디자인 → 5. 최종 렌더링 → 6. 배포",
+    },
+  },
+];
+
+// 4. Landing Page Detail Image Data (각 project-card의 detail 이미지 경로)
+
+const landingPageDetailImages = [
+  "./img/randing-img1.png", // data-index="1"
+  "./img/landing-detail-2.jpg", // data-index="2"
+  "./img/landing-detail-3.jpg", // data-index="3"
+  "./img/landing-detail-4.jpg", // data-index="4"
+  "./img/landing-detail-5.jpg", // data-index="5"
+];
+
+// 5. Landing Page Image Detail Overlay Functions
+
+function openImageDetailOverlay(imagePath) {
+  const overlay = document.getElementById("image-detail-overlay");
+  const detailImage = document.getElementById("detail-image");
+
+  if (overlay && detailImage) {
+    detailImage.src = imagePath;
+    overlay.classList.add("active");
+    // 배경 스크롤 방지
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeImageDetailOverlay() {
+  const overlay = document.getElementById("image-detail-overlay");
+  if (overlay) {
+    overlay.classList.remove("active");
+    // 배경 스크롤 복원
+    document.body.style.overflow = "";
+  }
+}
+// Water ripple effect variables
+let waterEffect = null;
+let displacementSprite = null;
+let displacementFilter = null;
+let pixiApp = null;
+
+let currentSlide = 0;
+
+// 3. Banner 캐러셀 함수 (전역 함수로 선언)
+function updateCarousel() {
+  if (!bnCards || totalCards === 0) return;
+
+  bnCards.forEach((card, index) => {
+    card.classList.remove("active");
+
+    const position = (index - currentIndex + totalCards) % totalCards;
+    const angle = (360 / totalCards) * position;
+    const distance = 600;
+
+    let scale, zIndex, opacity, rotateY;
+    let offsetX = 0;
+
+    if (position === 0) {
+      scale = 1;
+      zIndex = 100;
+      opacity = 1;
+      rotateY = 0;
+      card.classList.add("active");
+    } else if (position === 1) {
+      scale = 0.85;
+      zIndex = 50;
+      opacity = 0.8;
+      rotateY = -25;
+    } else if (position === totalCards - 1) {
+      scale = 0.85;
+      zIndex = 50;
+      opacity = 0.8;
+      rotateY = 25;
+    } else if (position === 2) {
+      scale = 0.7;
+      zIndex = 25;
+      opacity = 0.5;
+      rotateY = -35;
+      offsetX = distance * 0.35;
+    } else if (position === totalCards - 2) {
+      scale = 0.7;
+      zIndex = 25;
+      opacity = 0.5;
+      rotateY = 35;
+      offsetX = distance * -0.35;
+    } else {
+      scale = 0.6;
+      zIndex = 1;
+      opacity = 0.3;
+      rotateY = position < totalCards / 2 ? -45 : 45;
+    }
+
+    const rad = (angle * Math.PI) / 180;
+    const x = Math.sin(rad) * distance + offsetX;
+    const z = Math.cos(rad) * distance - distance;
+
+    card.style.transform = `
+             translate(-50%, -50%)
+             translate3d(${x}px, 0, ${z}px)
+             rotateY(${rotateY}deg)
+             scale(${scale})
+             `;
+    card.style.zIndex = zIndex;
+    card.style.opacity = opacity;
+  });
+}
+
+function rotate(direction) {
+  currentIndex = (currentIndex - direction + totalCards) % totalCards;
+  updateCarousel();
+}
+
+function openOverlay(event, index) {
+  event.stopPropagation();
+  const overlay = document.getElementById("overlay");
+  const content = contents[index];
+
+  document.getElementById("overlayTitle").textContent = content.title;
+
+  const tagElement = document.querySelector(".overlay-tag");
+  tagElement.textContent = content.tag;
+
+  document.getElementById("overlayDescription").textContent =
+    content.description;
+  document.getElementById("overlayPeriod").textContent = content.period;
+
+  const toolsContainer = document.getElementById("overlayTools");
+  toolsContainer.innerHTML = "";
+  content.tools.forEach((tool) => {
+    const toolIcon = document.createElement("div");
+    toolIcon.className = "overlay-tool-icon";
+    toolIcon.textContent = tool;
+    toolsContainer.appendChild(toolIcon);
+  });
+
+  const overlayImages = document.getElementById("overlayImages");
+  overlayImages.innerHTML = `
+    <div class="overlay-images-left">
+      <div class="overlay-image-container image-1">
+        <img src="${content.images.image1}" alt="Project Image 1" />
+      </div>
+      <div class="overlay-image-container image-2">
+        <img src="${content.images.image2}" alt="Project Image 2" />
+      </div>
+    </div>
+    <div class="overlay-images-right">
+      <div class="overlay-image-container image-3">
+        <img src="${content.images.image3}" alt="Project Image 3" />
+      </div>
+    </div>
+  `;
+
+  overlay.classList.add("active");
+}
+
+function closeOverlay(event) {
+  if (!event || event.target.id === "overlay") {
+    document.getElementById("overlay").classList.remove("active");
+  }
+}
+
+// 4. Main Content Slider 함수 (전역 함수로 선언)
+function updateSlide(index) {
+  currentSlide = index;
+  const data = sliderData[index];
+
+  console.log("Current Slide:", currentSlide);
+
+  document.querySelector(".project-title").textContent = data.title;
+  document.querySelector(".description").textContent = data.description;
+  document.querySelector(".meta-info").innerHTML = data.meta;
+
+  const badgesContainer = document.querySelector(".category-badges");
+  badgesContainer.innerHTML = data.badges
+    .map((badge, i) => `<div class="badge badge-${i + 1}">${badge}</div>`)
+    .join("");
+
+  const toolsContainer = document.querySelector(".tool-title");
+  const toolHTML = data.tools
+    .map((tool) => `<img src="./img/${tool}" alt="${tool}" />`)
+    .join("");
+  toolsContainer.innerHTML = `<p>Tool.</p><div class="tool-list">${toolHTML}</div>`;
+
+  document.querySelectorAll("#slider-btn button").forEach((btn, i) => {
+    btn.classList.toggle("active", i === index);
+  });
+
+  updateTabletImage(data.image);
+  attachOverlayButtonEvents();
+}
+
+function updateTabletImage(imageUrl) {
+  const container = document.querySelector(".tablet-image-container");
+
+  console.log("Updating image without water effect:", imageUrl);
+
+  if (pixiApp) {
+    try {
+      container.removeChild(pixiApp.view);
+      pixiApp.destroy(true, {
+        children: true,
+        texture: true,
+        baseTexture: true,
+      });
+    } catch (e) {
+      console.log("Cleanup error:", e);
+    }
+    pixiApp = null;
+  }
+
+  let existingImg = container.querySelector(".tablet-image");
+
+  if (!existingImg) {
+    existingImg = document.createElement("img");
+    existingImg.className = "tablet-image";
+    container.appendChild(existingImg);
+  }
+
+  existingImg.src = imageUrl;
+  existingImg.style.display = "block";
+  existingImg.style.width = "100%";
+  existingImg.style.height = "100%";
+  existingImg.style.objectFit = "contain";
+}
+
+function initWaterEffect(container, imageUrl) {
+  try {
+    console.log("Initializing PIXI app...");
+  } catch (error) {
+    console.error("Water effect error:", error);
+    const existingImg = container.querySelector(".tablet-image");
+    if (existingImg) {
+      existingImg.style.display = "block";
+      existingImg.src = imageUrl;
+    }
+  }
+}
+
+function attachOverlayButtonEvents() {
+  const designBtn = document.getElementById("design-btn");
+  const processBtn = document.getElementById("process-btn");
+  const designOverlay = document.getElementById("modal-design-concept");
+  const processOverlay = document.getElementById("modal-workflow-process");
+
+  if (!designBtn || !processBtn) return;
+
+  const newDesignBtn = designBtn.cloneNode(true);
+  const newProcessBtn = processBtn.cloneNode(true);
+
+  designBtn.parentNode.replaceChild(newDesignBtn, designBtn);
+  processBtn.parentNode.replaceChild(newProcessBtn, processBtn);
+
+  newDesignBtn.addEventListener("click", () => {
+    console.log("Design button clicked, currentSlide:", currentSlide);
+    const data = sliderData[currentSlide];
+    console.log("Design data:", data.designContent);
+
+    const overlayTitle = designOverlay.querySelector(".overlay-title");
+
+    const existingDesc = designOverlay.querySelectorAll(
+      ".overlay-description-text"
+    );
+    existingDesc.forEach((el) => el.remove());
+
+    overlayTitle.textContent = data.designContent.title;
+
+    const closeBtn = designOverlay.querySelector(".overlay-close-btn");
+    const descDiv = document.createElement("div");
+    descDiv.className = "overlay-description-text";
+    descDiv.style.cssText =
+      "padding: 80px 50px 50px 50px; font-size: 18px; line-height: 1.8; color: #333;";
+    descDiv.textContent = data.designContent.content;
+
+    closeBtn.parentElement.appendChild(descDiv);
+
+    toggleOverlay(designOverlay, true);
+  });
+
+  newProcessBtn.addEventListener("click", () => {
+    console.log("Process button clicked, currentSlide:", currentSlide);
+    const data = sliderData[currentSlide];
+    console.log("Process data:", data.processContent);
+
+    const overlayTitle = processOverlay.querySelector(".overlay-title");
+
+    const existingDesc = processOverlay.querySelectorAll(
+      ".overlay-description-text"
+    );
+    existingDesc.forEach((el) => el.remove());
+
+    overlayTitle.textContent = data.processContent.title;
+
+    const closeBtn = processOverlay.querySelector(".overlay-close-btn");
+    const descDiv = document.createElement("div");
+    descDiv.className = "overlay-description-text";
+    descDiv.style.cssText =
+      "padding: 80px 50px 50px 50px; font-size: 18px; line-height: 1.8; color: #333; white-space: pre-line;";
+    descDiv.textContent = data.processContent.content;
+
+    closeBtn.parentElement.appendChild(descDiv);
+
+    toggleOverlay(processOverlay, true);
+  });
+
+  function toggleOverlay(overlay, isOpen) {
+    if (isOpen) {
+      overlay.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    } else {
+      overlay.classList.remove("visible");
+      document.body.style.overflow = "";
+    }
+  }
+}
+
+// 5. DOMContentLoaded (초기화 및 나머지 로직)
+document.addEventListener("DOMContentLoaded", () => {
+  const designBtn = document.getElementById("design-btn");
+  const processBtn = document.getElementById("process-btn");
+
+  const designOverlay = document.getElementById("modal-design-concept");
+  const processOverlay = document.getElementById("modal-workflow-process");
+
+  function toggleOverlay(overlay, isOpen) {
+    if (isOpen) {
+      overlay.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    } else {
+      overlay.classList.remove("visible");
+      document.body.style.overflow = "";
+    }
+  }
+
+  attachOverlayButtonEvents();
+
+  document.querySelectorAll(".overlay-close-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const overlay = event.target.closest(".main-overlay");
+      if (overlay) {
+        toggleOverlay(overlay, false);
+      }
+    });
+  });
+
+  document.querySelectorAll(".main-overlay").forEach((overlay) => {
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) {
+        toggleOverlay(overlay, false);
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      document.querySelectorAll(".main-overlay.visible").forEach((overlay) => {
+        toggleOverlay(overlay, false);
+      });
+    }
+  });
+
+  const bigWaterdrop = document.querySelector(".big-waterdrop");
+
+  document.querySelectorAll("#slider-btn button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const slideIndex = parseInt(button.dataset.slide);
+      updateSlide(slideIndex);
+
+      if (bigWaterdrop) {
+        currentRotation += 90;
+        bigWaterdrop.style.transform = `rotate(${currentRotation}deg)`;
+      }
+    });
+  });
+
+  console.log("DOMContentLoaded - Starting initialization");
+
+  updateTabletImage(sliderData[0].image);
+
+  const gnbBtn = document.querySelectorAll(".gnb-btn");
+  let selectedBtn = document.querySelector(".selected");
+
+  const setAnchorOnSelected = () => {
+    if (selectedBtn) {
+      selectedBtn.style.anchorName = "--selected";
+    }
+  };
+
+  setAnchorOnSelected();
+
+  gnbBtn.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (selectedBtn) {
+        selectedBtn.classList.remove("selected");
+        selectedBtn.style.anchorName = "";
+      }
+      selectedBtn = button;
+      selectedBtn.classList.add("selected");
+      setAnchorOnSelected();
+    });
+
+    const handleInteractionStart = () => {
+      if (button !== selectedBtn) {
+        if (selectedBtn) {
+          selectedBtn.style.anchorName = "";
+        }
+
+        button.style.anchorName = "--selected";
+      }
+    };
+
+    button.addEventListener("mouseenter", handleInteractionStart);
+    button.addEventListener("focus", handleInteractionStart);
+
+    const handleInteractionEnd = () => {
+      if (button !== selectedBtn) {
+        button.style.anchorName = "";
+        setAnchorOnSelected();
+      }
+    };
+
+    button.addEventListener("mouseleave", handleInteractionEnd);
+    button.addEventListener("blur", handleInteractionEnd);
+  });
+
+  const gnbLinks = document.querySelectorAll(".gnb-top a");
+
+  gnbLinks.forEach((link) => {
+    const hoverImg = link.dataset.hover;
+
+    link.addEventListener("mouseenter", () => {
+      link.style.color = "transparent";
+      link.style.backgroundImage = `url(${hoverImg})`;
+      link.style.backgroundSize = "contain";
+      link.style.backgroundRepeat = "no-repeat";
+      link.style.backgroundPosition = "center";
+    });
+
+    link.addEventListener("mouseleave", () => {
+      link.style.color = "";
+      link.style.backgroundImage = "";
+    });
+  });
+
+  const wave = document.querySelector(".wave");
+  document.addEventListener("mousemove", (e) => {
+    wave.style.left = `${e.clientX}px`;
+    wave.style.top = `${e.clientY}px`;
+  });
+
+  const cards = document.querySelectorAll(".project-card");
+
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      cards.forEach((c) => c.classList.remove("active", "prev", "shrink"));
+
+      card.classList.add("active");
+      // 'active' 카드 외에 'prev'(450px) 클래스를 부여할 카드의 인덱스를 저장합니다.
+      let prevIndex = -1;
+
+      // 1. 현재 카드가 첫 번째(#1) 카드가 아닌 경우, 앞 카드(index-1)에 'prev'를 부여합니다.
+      if (index > 0) {
+        cards[index - 1].classList.add("prev"); // prev = 450px
+        prevIndex = index - 1;
+      }
+      // 2. 현재 카드가 첫 번째(#1, index=0) 카드의 경우, 뒷 카드(index+1)에 'prev'를 부여합니다. (사용자 요청 사항)
+      else if (index === 0 && cards.length > 1) {
+        cards[index + 1].classList.add("prev"); // Card #2 (index 1) now gets 'prev' (450px)
+        prevIndex = index + 1;
+      }
+
+      // 나머지 카드는 'shrink'(90px) 클래스를 부여합니다.
+      cards.forEach((c, i) => {
+        // 'active' 카드(i === index)와 'prev' 카드(i === prevIndex)는 제외합니다.
+        if (i !== index && i !== prevIndex) {
+          c.classList.add("shrink");
+        }
+      });
+    });
+  });
+
+  const navItems = document.querySelectorAll(".nav-item");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      navItems.forEach((nav) => nav.classList.remove("active"));
+
+      this.classList.add("active");
+
+      const targetId = this.getAttribute("data-target");
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  bnCards = document.querySelectorAll(".card");
+  totalCards = bnCards.length;
+
+  updateCarousel();
+
+  let startX = 0;
+  const carousel = document.getElementById("carousel");
+
+  carousel.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      rotate(diff > 0 ? 1 : -1);
+    }
+  });
+
+  // 6. Landing Page Detail Button Event Listeners
+
+  // 오버레이 닫기 버튼 이벤트
+  const imageOverlayCloseBtn = document.getElementById(
+    "image-overlay-close-btn"
+  );
+  if (imageOverlayCloseBtn) {
+    imageOverlayCloseBtn.addEventListener("click", closeImageDetailOverlay);
+  }
+
+  // 오버레이 배경 클릭 시 닫기 이벤트
+  const imageDetailOverlay = document.getElementById("image-detail-overlay");
+  if (imageDetailOverlay) {
+    imageDetailOverlay.addEventListener("click", (event) => {
+      // 클릭된 요소가 오버레이 자체일 때만 닫기
+      if (event.target.id === "image-detail-overlay") {
+        closeImageDetailOverlay();
+      }
+    });
+  }
+
+  // project-card의 Detail 버튼 클릭 이벤트
+  const detailButtons = document.querySelectorAll(".project-card_btn");
+  detailButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation(); // 불필요한 이벤트 버블링 방지
+
+      // 부모 .project-card에서 data-index 가져오기
+      const card = button.closest(".project-card");
+      const index = parseInt(card.getAttribute("data-index"));
+
+      // 이미지 경로 찾기 (data-index 1부터 시작 -> 배열 인덱스 0부터 시작)
+      if (index >= 1 && index <= landingPageDetailImages.length) {
+        const imagePath = landingPageDetailImages[index - 1];
+        openImageDetailOverlay(imagePath);
+      } else {
+        console.error(`Detail image not found for index: ${index}`);
+      }
+    });
+  });
+});

@@ -1,0 +1,1191 @@
+@charset "UTF-8";
+/* 전체 레이아웃 및 기본 폰트 */
+
+@import url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.css");
+
+/* 기본 리셋 */
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#main-content {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 네이게이션 커서/포인터-Positioning */
+:root {
+  --spring-easing: linear(
+    0,
+    0.0018,
+    0.0069 1.15%,
+    0.026 2.3%,
+    0.0637,
+    0.1135 5.18%,
+    0.2229 7.78%,
+    0.5977 15.84%,
+    0.7014,
+    0.7904,
+    0.8641,
+    0.9228,
+    0.9676 28.8%,
+    1.0032 31.68%,
+    1.0225,
+    1.0352 36.29%,
+    1.0431 38.88%,
+    1.046 42.05%,
+    1.0448 44.35%,
+    1.0407 47.23%,
+    1.0118 61.63%,
+    1.0025 69.41%,
+    0.9981 80.35%,
+    0.9992 99.94%
+  );
+
+  --speed: 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.anchored-pointer {
+  position: absolute;
+  position-anchor: --selected;
+  top: anchor(top);
+  left: anchor(left);
+  width: 3.5rem;
+  height: 6rem;
+  margin-top: calc(anchor-size(height) * -0.4);
+  display: block;
+  background: none;
+  border: 1px solid white;
+  border-radius: 3rem;
+  transition: all 1s var(--spring-easing);
+  filter: drop-shadow(0 3px 6px gray);
+  pointer-events: none;
+  overflow: hidden;
+  backdrop-filter: url(#filter);
+}
+
+.anchored-pointer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      1rem 10rem ellipse at 50% 50% in oklch,
+      oklch(100% 0 0 / 0%) 10% 50%,
+      150%,
+      oklch(100% 0 0 / 100%) 175% 165%
+    ),
+    radial-gradient(
+      2rem 3.5rem ellipse at 50% 50% in oklch,
+      oklch(0% 0 0 / 0%) 80%,
+      gray 150%
+    );
+}
+
+/* 상단 네비게이션 고정 및 중앙 정렬 카드형 */
+nav {
+  position: fixed; /* 화면 스크롤 시 고정 */
+  top: 3rem; /* 상단에서 3rem 아래 */
+  left: 50%; /* 가로 중앙 기준 */
+  transform: translateX(-50%); /* 진짜 중앙 맞춤 */
+  display: flex; /* 가로 Flex 배치 */
+  z-index: 1000; /* 다른 요소보다 위 */
+
+  background: #fff; /* 흰색 배경 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* 그림자 */
+  padding: 0 30px;
+  /* 내부 여백 (상하 10px, 좌우 30px) */
+}
+
+/* 메뉴 리스트 가로 중앙 정렬 */
+nav .gnb-top {
+  display: flex; /* 가로 Flex 배치 */
+  justify-content: center; /* 중앙 정렬 */
+  gap: 2.5rem; /* 메뉴 아이템 사이 간격 */
+  list-style: none; /* 기본 점 제거 */
+  padding: 0 0;
+  /* 상하 패딩 */
+}
+nav .gnb-top .gnb-btn,
+.selected {
+  display: flex;
+  justify-content: center; /* 수평 중앙 */
+  align-items: center; /* 수직 중앙 */
+  font-size: 15px;
+  width: 55px;
+  height: 55px;
+}
+/* 메뉴 링크 스타일 */
+nav .gnb-btn a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  transition: color 0.3s;
+  width: 40px;
+  height: 40px;
+}
+
+/* ::after 가상 요소 */
+nav .gnb-btn a::after {
+  content: "";
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 500;
+  transition: color 0.3s;
+  width: 40px;
+  height: 40px;
+}
+/* hover 시 글씨 숨김 */
+nav .gnb-btn a:hover {
+  color: transparent;
+}
+
+/* section의 네비게이션 */
+.section-nav {
+  border-radius: 15px;
+  padding: 20px 0;
+  width: 100px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background: #fff; /* 흰색 배경이 있어야 원이 확실히 보입니다. */
+  z-index: 10; /* 다른 요소보다 위에 표시 */
+}
+
+.section-nav .nav-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 15px 0;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  overflow: visible;
+}
+
+/* 활성된 버튼: 배경 이미지 적용 */
+.section-nav .nav-item.active::before {
+  opacity: 1;
+}
+
+/* 비활성 버튼일 때는 배경 숨김 */
+.section-nav .nav-item::before {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(1, 134, 166, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 텍스트가 배경 위로 올라오도록 */
+.section-nav .nav-item span {
+  position: relative;
+  z-index: 2;
+}
+
+/* 호버 시 텍스트 컬러만 블루로 변경 */
+.section-nav .nav-item:hover {
+  color: #00bcd4;
+}
+
+/* 커스텀 마우스 커서 */
+
+.wave {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: yellowgreen; */
+
+  pointer-events: none;
+  user-select: none;
+}
+.wave:before,
+.wave:after {
+  position: absolute;
+  content: "";
+  border: 3px solid #0186a6;
+  opacity: 1;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  animation: wave 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.wave:after {
+  animation-delay: -0.4s;
+}
+@keyframes wave {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 1. 레이아웃 및 배경 (물방울 SVG) */
+
+#main-content .background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* 큰 물방울 (Big Waterdrop) SVG 스타일 */
+#main-content .big-waterdrop {
+  position: absolute;
+  top: 50px; /* 이미지에 맞게 조정 */
+  left: -220px; /* 이미지에 맞게 조정 */
+  width: 1309px;
+  height: 1321px;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 부드러운 전환 효과 추가 */
+
+  background-image: url("../img/big-waterdrop.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* 작은 물방울 (Small Waterdrop) SVG 스타일 */
+#main-content .small-waterdrop {
+  /* border: 1px solid #000; */
+  position: absolute;
+  top: 15px;
+  right: -100px; /* 이미지에 맞게 조정 */
+  width: 287px;
+  height: 295px;
+  opacity: 0.7;
+
+  background-image: url("../img/small-waterdrop.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* slider */
+
+#slider-btn {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 6;
+
+  button {
+    display: block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    width: 16px;
+    height: 16px;
+    background-color: #0186a6;
+    border-radius: 100%;
+    padding: 0;
+    margin: 30px 0;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.2;
+    transition: opacity 0.2s ease-in-out;
+    outline: none;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &.active {
+      opacity: 1;
+
+      &:before {
+        width: 300%;
+        height: 300%;
+        opacity: 1;
+      }
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      border: 1px solid #0186a6;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out, width 0.4s ease-in-out,
+        height 0.4s ease-in-out;
+    }
+  }
+}
+
+/* 2. 메인 콘텐츠 섹션 */
+
+#main-content {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  z-index: 1; /* 콘텐츠가 배경 위에 있도록 설정 */
+}
+
+/* 좌측 영역 (태블릿 이미지 및 사이드 네비게이션) */
+.left-panel {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* 우측 영역 (프로젝트 상세 정보) */
+.right-panel {
+  right: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 태블릿 이미지 컨테이너 */
+.tablet-image-container {
+  position: absolute;
+  left: 120px;
+  /* position: relative; */
+  /* width: 100%; */
+  /* 큰 물방울 위에 배치 */
+  z-index: 5;
+  width: 800px;
+  height: auto;
+}
+
+/* 3. 우측 상세 정보 스타일 */
+.project-title {
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.category-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.badge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: #ffffff;
+}
+
+.badge-1 {
+  background-color: #0acf83;
+} /* 리디자인 */
+.badge-2 {
+  background-color: #ff7f00;
+} /* 소개 */
+.badge-3 {
+  background-color: #31a8ff;
+} /* 브랜드 디자인 */
+
+.description {
+  font-size: 20px;
+  max-width: 520px;
+  margin-bottom: 25px;
+}
+
+.meta-info {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.meta-info strong {
+  font-size: 20px;
+}
+
+/* Tool 아이콘 영역 */
+
+.tool-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 100px;
+}
+.tool-list{
+  display: flex;
+  gap: 8px;
+}
+.tool-title p {
+  margin-bottom: 10px;
+}
+/* 버튼 영역 */
+.action-buttons {
+  display: flex;
+  gap: 50px;
+  justify-content: flex-start;
+}
+
+.action-button {
+  background: #fff;
+  color: #0186a6;
+  border: 2px solid #0186a6;
+  padding: 7px 30px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #0186a6;
+  color: #fff;
+}
+
+/* 버튼 내 화살표 SVG (lucide-react의 ArrowUpRight 모방) */
+.arrow-icon {
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  transform: translateY(-1px);
+}
+
+/* main-overlay 오버레이 */
+
+.main-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* 기본 숨김 */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-overlay.visible {
+  /* 클래스 이름 변경 */
+  display: flex;
+  opacity: 1;
+}
+
+.overlay-content {
+  background: white;
+  padding: 0;
+  border-radius: 0;
+  max-width: 1600px;
+  width: 95%;
+  height: 90vh;
+
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.main-overlay.visible .overlay-content {
+  /* 클래스 이름 변경 */
+  transform: scale(1);
+}
+
+.overlay-close-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  cursor: pointer;
+  color: #0186a6;
+  transition: all 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overlay-close-btn:hover {
+  background: #0891b2;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.overlay-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/*  landing-page - slider 시작부분 */
+
+#landing-page {
+  border: 1px solid #000;
+
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1; /* 콘텐츠가 배경 위에 있도록 설정 */
+
+  display: flex;
+  justify-content: center;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  position: absolute;
+  top: 140px;
+}
+.head h2 {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  color: #0186a6;
+  font-weight: bold;
+  font-size: 48px;
+}
+
+.track {
+  margin-top: 280px;
+  gap: 15px;
+  display: flex;
+  transition: all 0.6s ease;
+  align-items: flex-start;
+  justify-content: center;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.project-card {
+  position: relative;
+  height: 660px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 기본 크기 */
+.project-card[data-index="1"] {
+  flex: 0 0 819px;
+}
+.project-card[data-index="2"] {
+  flex: 0 0 450px;
+}
+.project-card[data-index="3"],
+.project-card[data-index="4"],
+.project-card[data-index="5"] {
+  flex: 0 0 90px;
+}
+
+/* 활성 상태 */
+.project-card.active {
+  flex: 0 0 819px;
+  transform: translateY(-5px);
+}
+.project-card.prev {
+  flex: 0 0 450px;
+}
+.project-card.shrink {
+  flex: 0 0 90px;
+}
+
+.project-card_bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) saturate(75%);
+  transition: filter 0.3s, transform var(--speed);
+}
+.project-card:hover .project-card_bg {
+  filter: brightness(0.9) saturate(100%);
+  transform: scale(1.06);
+}
+
+.project-card_content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 컨텐츠를 아래로 정렬 */
+  align-items: flex-start; /* 컨텐츠를 왼쪽으로 정렬 */
+  padding: 30px;
+  background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+  z-index: 2;
+}
+.project-card_content > div {
+  align-self: flex-start;
+}
+.project-card_number {
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50px;
+  transition: background 0.3s;
+  font-size: 22px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card_title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 30px;
+  transition: all 0.4s ease;
+  margin-bottom: 10px;
+}
+
+.project-card_btn {
+  padding: 7px 25px;
+  margin-top: 30px;
+  border: none;
+  border-radius: 9999px;
+  background: #0186a6;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.project-card_btn:hover {
+  background: #83c5d9;
+}
+
+/* 축소 상태일 때 버튼 숨기기 + 제목 세로쓰기 */
+.project-card.shrink .project-card_btn {
+  display: none;
+}
+
+.project-card.shrink .project-card_content {
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card.shrink .project-card_title {
+  writing-mode: vertical-rl;
+  font-size: 22px; /* 조금 더 작게 */
+  letter-spacing: 2px;
+  margin-top: 0;
+}
+/* Landing Page 랜딩 페이지 오버레이 전용 스타일 */
+.image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* 초기 숨김 */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* 최상위 레이어 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 50px; /* 닫기 버튼이 화면 밖으로 나가지 않도록 여백 확보 */
+}
+
+.image-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* 이미지 뷰포트와 닫기 버튼을 감싸는 컨테이너 */
+.overlay-container {
+  position: relative; /* 닫기 버튼의 위치 기준 */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  overflow: visible; /* 닫기 버튼이 컨테이너 밖으로 나갈 수 있도록 설정 */
+}
+
+/* 이미지 뷰포트: 가로 860px, 최대 세로 922px, 스크롤 활성화 */
+.image-viewport {
+  width: 860px; /* 필수 가로 크기 */
+  height: 922px; /* 뷰포트의 최대 세로 크기 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-x: hidden; /* 가로 스크롤 숨김 */
+  border-radius: 10px;
+}
+
+/* 상세 이미지 (가로 860px, 세로 가변) */
+.image-viewport img {
+  width: 860px; /* 뷰포트 너비와 동일 (100%) */
+  height: auto; /* 세로 길이는 이미지 원본에 따라 가변 */
+  display: block;
+}
+
+/* 닫기 버튼: 오버레이 이미지 오른쪽 상단에 위치 */
+.image-overlay #image-overlay-close-btn {
+  position: absolute;
+  top: -25px; /* 컨테이너 상단 밖으로 위치 */
+  right: -25px; /* 컨테이너 오른쪽 밖으로 위치 */
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  cursor: pointer;
+  color: #1a1a1a;
+  transition: all 0.3s;
+  z-index: 2001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.image-overlay #image-overlay-close-btn:hover {
+  background: #0186a6;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* BANNER 시작 */
+.banner {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-title {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: #0186a6;
+  z-index: 10;
+}
+
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  position: relative;
+}
+
+.carousel {
+  top: 60px;
+  position: relative;
+  width: 100%;
+  height: 702px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card {
+  position: absolute;
+  width: 371px;
+  height: 660px;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 각 카드별 이미지 지정 */
+.card[data-index="0"] .card-inner {
+  background-image: url("../img/bnr-yosigo.png");
+}
+
+.card[data-index="1"] .card-inner {
+  background-image: url("../img/bnr-burgerking.png");
+}
+
+.card[data-index="2"] .card-inner {
+  background-image: url("../img/bnr-pethroom.png");
+}
+
+.card[data-index="3"] .card-inner {
+  background-image: url("../img/bnr-dental.png");
+}
+
+.card[data-index="4"] .card-inner {
+  background-image: url("../img/bnr-korean-air.png");
+}
+
+.card[data-index="5"] .card-inner {
+  background-image: url("../img/bnr-running.png");
+}
+
+.card[data-index="6"] .card-inner {
+  background-image: url("../img/bnr-project7.png");
+}
+
+.card[data-index="7"] .card-inner {
+  background-image: url("../img/bnr-old.png");
+}
+
+.card[data-index="8"] .card-inner {
+  background-image: url("../img/bnr-old-ferry.png");
+}
+
+.card[data-index="9"] .card-inner {
+  background-image: url("../img/bnr-br.png");
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, #e9f4ff 0%, #e9f4ff 100%);
+  padding: 30px;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.card.active .card-content {
+  transform: translateY(0);
+}
+
+.card-title {
+  font-size: 35px;
+  font-weight: bold;
+  color: #0186a6;
+  margin-bottom: 20px;
+}
+
+.card-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 25px;
+  border: 2px solid #0186a6;
+  border-radius: 50px;
+  background: transparent;
+  color: #0186a6;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.card-button:hover {
+  background: #0186a6;
+  color: white;
+}
+
+.card-button::after {
+  content: "↗";
+  font-size: 18px;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #0186a6;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+  transition: background 0.3s;
+}
+
+.nav-button:hover {
+  background: #0186a6;
+}
+
+.nav-button.prev {
+  left: 150px;
+}
+
+.nav-button.next {
+  right: 150px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.overlay-content {
+  background: white;
+  padding: 0;
+  border-radius: 0;
+  max-width: 1600px;
+  width: 95%;
+  height: 90vh;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  display: flex;
+  overflow: hidden;
+}
+
+.overlay.active .overlay-content {
+  transform: scale(1);
+}
+
+.overlay-close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  cursor: pointer;
+  color: #0186a6;
+  transition: all 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overlay-close:hover {
+  background: #0891b2;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.overlay-left {
+  flex: 0.9;
+  padding: 60px 0px 0 50px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.overlay-logo {
+  font-size: 65px;
+  font-weight: 700;
+}
+
+.overlay-tag {
+  display: inline-block;
+  background: #0186a6;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 45px;
+  width: fit-content;
+}
+
+.overlay-description {
+  font-size: 17px;
+  margin-bottom: 50px;
+  font-weight: 400;
+}
+
+.overlay-info {
+  margin-top: auto;
+}
+
+.overlay-info-item {
+  margin-bottom: 15px;
+}
+
+.overlay-info-label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.overlay-info-value {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.overlay-tools {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.overlay-tool-icon {
+  width: 42px;
+  height: 42px;
+  background: #1f2937;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 11px;
+  overflow: hidden;
+}
+
+.overlay-tool-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.overlay-right {
+  flex: 1.2;
+  /* background: #0ea5e9; */
+  display: flex;
+  gap: 15px;
+  padding: 60px 85px;
+  position: relative;
+}
+
+.overlay-images-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.overlay-images-right {
+  flex: 1;
+  align-items: center;
+}
+
+.overlay-image-container {
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-image-container.image-1 {
+  width: 501px;
+  height: 263px;
+}
+
+.overlay-image-container.image-2 {
+  width: 451px;
+  height: 451px;
+}
+
+.overlay-image-container.image-3 {
+  width: 452px;
+  height: 803px;
+}
+
+.overlay-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

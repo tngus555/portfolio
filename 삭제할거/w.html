@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banner Carousel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      background: #f5f5f5;
+      width: 1920px;
+      height: 1080px;
+      margin: 0 auto;
+    }
+
+    .banner {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner-title {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 48px;
+      font-weight: bold;
+      color: #0891b2;
+      z-index: 10;
+    }
+
+    .carousel-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+
+    .card {
+      position: absolute;
+      width: 371px;
+      height: 660px;
+      left: 50%;
+      top: 50%;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #e5e7eb;
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, #e0f2fe 0%, #e0f2fe 100%);
+      padding: 30px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .card.active .card-content {
+      transform: translateY(0);
+    }
+
+    .card-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #0891b2;
+      margin-bottom: 20px;
+    }
+
+    .card-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: 2px solid #0891b2;
+      border-radius: 25px;
+      background: transparent;
+      color: #0891b2;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .card-button:hover {
+      background: #0891b2;
+      color: white;
+    }
+
+    .card-button::after {
+      content: '↗';
+      font-size: 18px;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(8, 145, 178, 0.8);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 100;
+      transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+      background: #0891b2;
+    }
+
+    .nav-button.prev {
+      left: 50px;
+    }
+
+    .nav-button.next {
+      right: 50px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .overlay-content {
+      background: white;
+      padding: 0;
+      border-radius: 0;
+      max-width: 1400px;
+      width: 95%;
+      height: 90vh;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .overlay.active .overlay-content {
+      transform: scale(1);
+    }
+
+    .overlay-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 28px;
+      cursor: pointer;
+      color: #0891b2;
+      transition: all 0.3s;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .overlay-close:hover {
+      background: #0891b2;
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .overlay-left {
+      flex: 0.9;
+      background: #ffffff;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .overlay-logo {
+      font-size: 64px;
+      font-weight: 900;
+      color: #000;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .overlay-tag {
+      display: inline-block;
+      background: #0891b2;
+      color: white;
+      padding: 6px 18px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 35px;
+      width: fit-content;
+    }
+
+    .overlay-description {
+      color: #1f2937;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+
+    .overlay-info {
+      margin-top: auto;
+    }
+
+    .overlay-info-item {
+      margin-bottom: 25px;
+    }
+
+    .overlay-info-label {
+      font-size: 13px;
+      color: #6b7280;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .overlay-info-value {
+      font-size: 15px;
+      color: #111;
+      font-weight: 400;
+    }
+
+    .overlay-tools {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .overlay-tool-icon {
+      width: 42px;
+      height: 42px;
+      background: #1f2937;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      overflow: hidden;
+    }
+
+    .overlay-tool-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .overlay-right {
+      flex: 1.2;
+      background: #0ea5e9;
+      display: flex;
+      gap: 15px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .overlay-images-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .overlay-images-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .overlay-image-container {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .overlay-image-container.image-1 {
+      width: 501px;
+      height: 263px;
+    }
+
+    .overlay-image-container.image-2 {
+      width: 451px;
+      height: 451px;
+    }
+
+    .overlay-image-container.image-3 {
+      width: 452px;
+      height: 803px;
+    }
+
+    .overlay-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .overlay-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <section class="banner">
+    <h1 class="banner-title">BANNER</h1>
+    
+    <div class="carousel-container">
+      <button class="nav-button prev" onclick="rotate(-1)">‹</button>
+      
+      <div class="carousel" id="carousel">
+        <div class="card" data-index="0">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">YOSIGO</h2>
+              <button class="card-button" onclick="openOverlay(event, 0)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="1">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 02</h2>
+              <button class="card-button" onclick="openOverlay(event, 1)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="2">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 03</h2>
+              <button class="card-button" onclick="openOverlay(event, 2)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="3">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 04</h2>
+              <button class="card-button" onclick="openOverlay(event, 3)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="4">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 05</h2>
+              <button class="card-button" onclick="openOverlay(event, 4)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="5">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 06</h2>
+              <button class="card-button" onclick="openOverlay(event, 5)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="6">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 07</h2>
+              <button class="card-button" onclick="openOverlay(event, 6)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="7">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 08</h2>
+              <button class="card-button" onclick="openOverlay(event, 7)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="8">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 09</h2>
+              <button class="card-button" onclick="openOverlay(event, 8)">Design</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-index="9">
+          <div class="card-inner">
+            <div class="card-content">
+              <h2 class="card-title">PROJECT 10</h2>
+              <button class="card-button" onclick="openOverlay(event, 9)">Design</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="nav-button next" onclick="rotate(1)">›</button>
+    </div>
+  </section>
+
+  <div class="overlay" id="overlay" onclick="closeOverlay(event)">
+    <div class="overlay-content" onclick="event.stopPropagation()">
+      <button class="overlay-close" onclick="closeOverlay()">&times;</button>
+      
+      <div class="overlay-left">
+        <div>
+          <h2 class="overlay-logo" id="overlayTitle">YOSIGO</h2>
+          <span class="overlay-tag">#Graphic</span>
+          <p class="overlay-description" id="overlayDescription">
+            Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간, 요시고 사진전에서 만나는 휴식의 순간을 표현했습니다.
+          </p>
+        </div>
+        
+        <div class="overlay-info">
+          <div class="overlay-info-item">
+            <div class="overlay-info-label">Production Period.</div>
+            <div class="overlay-info-value" id="overlayPeriod">3 Hours</div>
+          </div>
+          <div class="overlay-info-item">
+            <div class="overlay-info-label">Tool.</div>
+            <div class="overlay-tools" id="overlayTools">
+              <div class="overlay-tool-icon">Ps</div>
+              <div class="overlay-tool-icon">Ai</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="overlay-right" id="overlayImages">
+        <div class="overlay-images-left">
+          <div class="overlay-image-container image-1">
+            <div class="overlay-image-placeholder">MILES TO GO<br>Early-Bird Ticket<br>OPEN</div>
+          </div>
+          <div class="overlay-image-container image-2">
+            <div class="overlay-image-placeholder">Early-Bird Ticket<br>OPEN</div>
+          </div>
+        </div>
+        <div class="overlay-images-right">
+          <div class="overlay-image-container image-3">
+            <div class="overlay-image-placeholder">MILES TO GO<br>Photographs by YOSIGO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const bnCards = document.querySelectorAll('.card');
+    const totalCards = bnCards.length;
+    let currentIndex = 0;
+
+    const contents = [
+      { 
+        title: 'YOSIGO', 
+        tag: '#Graphic',
+        description: 'Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간, 요시고 사진전에서 만나는 휴식의 순간을 표현했습니다.',
+        period: '3 Hours',
+        tools: ['Ps', 'Ai']
+      },
+      { 
+        title: 'PROJECT 02', 
+        tag: '#Branding',
+        description: '브랜드 아이덴티티 구축을 위한 종합 디자인 프로젝트입니다. 기업의 비전과 가치를 시각적으로 표현했습니다.',
+        period: '2 Weeks',
+        tools: ['Ai', 'Ps']
+      },
+      { 
+        title: 'PROJECT 03', 
+        tag: '#Web Design',
+        description: '사용자 중심의 웹 인터페이스 디자인 프로젝트입니다. 직관적인 UX와 아름다운 UI를 조화롭게 구현했습니다.',
+        period: '1 Month',
+        tools: ['Figma', 'Ps']
+      },
+      { 
+        title: 'PROJECT 04', 
+        tag: '#Editorial',
+        description: '에디토리얼 디자인을 통해 콘텐츠의 가독성과 심미성을 동시에 추구한 프로젝트입니다.',
+        period: '1 Week',
+        tools: ['InD', 'Ps']
+      },
+      { 
+        title: 'PROJECT 05', 
+        tag: '#Package',
+        description: '제품의 가치를 극대화하는 패키지 디자인 프로젝트입니다. 친환경적이고 실용적인 디자인을 추구했습니다.',
+        period: '10 Days',
+        tools: ['Ai', 'Ps']
+      },
+      { 
+        title: 'PROJECT 06', 
+        tag: '#Motion',
+        description: '다이나믹한 움직임으로 스토리를 전달하는 모션 그래픽 프로젝트입니다.',
+        period: '2 Weeks',
+        tools: ['AE', 'Ps']
+      },
+      { 
+        title: 'PROJECT 07', 
+        tag: '#Illustration',
+        description: '독창적인 일러스트레이션으로 브랜드 스토리를 표현한 프로젝트입니다.',
+        period: '5 Days',
+        tools: ['Ai', 'Ps']
+      },
+      { 
+        title: 'PROJECT 08', 
+        tag: '#Photography',
+        description: '감각적인 비주얼로 제품의 매력을 극대화한 사진 촬영 프로젝트입니다.',
+        period: '1 Day',
+        tools: ['Ps', 'Lr']
+      },
+      { 
+        title: 'PROJECT 09', 
+        tag: '#Print',
+        description: '인쇄 매체를 위한 고품질 디자인 작업입니다. 색감과 질감을 세심하게 고려했습니다.',
+        period: '1 Week',
+        tools: ['Ai', 'InD']
+      },
+      { 
+        title: 'PROJECT 10', 
+        tag: '#Exhibition',
+        description: '전시 공간을 위한 통합 디자인 프로젝트입니다. 관람객의 경험을 최우선으로 고려했습니다.',
+        period: '3 Weeks',
+        tools: ['Ai', 'Ps']
+      }
+    ];
+
+    function updateCarousel() {
+      bnCards.forEach((card, index) => {
+        card.classList.remove('active');
+        
+        const position = (index - currentIndex + totalCards) % totalCards;
+        const angle = (360 / totalCards) * position;
+        const distance = 600;
+        
+        let scale, zIndex, opacity, rotateY;
+        
+        if (position === 0) {
+          scale = 1;
+          zIndex = 100;
+          opacity = 1;
+          rotateY = 0;
+          card.classList.add('active');
+        } else if (position === 1) {
+          scale = 0.85;
+          zIndex = 50;
+          opacity = 0.8;
+          rotateY = -25;
+        } else if (position === totalCards - 1) {
+          scale = 0.85;
+          zIndex = 50;
+          opacity = 0.8;
+          rotateY = 25;
+        } else if (position === 2) {
+          scale = 0.7;
+          zIndex = 25;
+          opacity = 0.5;
+          rotateY = -35;
+        } else if (position === totalCards - 2) {
+          scale = 0.7;
+          zIndex = 25;
+          opacity = 0.5;
+          rotateY = 35;
+        } else {
+          scale = 0.6;
+          zIndex = 1;
+          opacity = 0.3;
+          rotateY = position < totalCards / 2 ? -45 : 45;
+        }
+        
+        const rad = (angle * Math.PI) / 180;
+        const x = Math.sin(rad) * distance;
+        const z = Math.cos(rad) * distance - distance;
+        
+        card.style.transform = `
+          translate(-50%, -50%)
+          translate3d(${x}px, 0, ${z}px)
+          rotateY(${rotateY}deg)
+          scale(${scale})
+        `;
+        card.style.zIndex = zIndex;
+        card.style.opacity = opacity;
+      });
+    }
+
+    function rotate(direction) {
+      currentIndex = (currentIndex - direction + totalCards) % totalCards;
+      updateCarousel();
+    }
+
+    function openOverlay(event, index) {
+      event.stopPropagation();
+      const overlay = document.getElementById('overlay');
+      const content = contents[index];
+      
+      document.getElementById('overlayTitle').textContent = content.title;
+      
+      const tagElement = document.querySelector('.overlay-tag');
+      tagElement.textContent = content.tag;
+      
+      document.getElementById('overlayDescription').textContent = content.description;
+      document.getElementById('overlayPeriod').textContent = content.period;
+      
+      const toolsContainer = document.getElementById('overlayTools');
+      toolsContainer.innerHTML = '';
+      content.tools.forEach(tool => {
+        const toolIcon = document.createElement('div');
+        toolIcon.className = 'overlay-tool-icon';
+        toolIcon.textContent = tool;
+        toolsContainer.appendChild(toolIcon);
+      });
+      
+      overlay.classList.add('active');
+    }
+
+    function closeOverlay(event) {
+      if (!event || event.target.id === 'overlay') {
+        document.getElementById('overlay').classList.remove('active');
+      }
+    }
+
+    updateCarousel();
+
+    let startX = 0;
+    const carousel = document.getElementById('carousel');
+
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > 50) {
+        rotate(diff > 0 ? 1 : -1);
+      }
+    });
+  </script>
+</body>
+</html>

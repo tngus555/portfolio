@@ -1,0 +1,409 @@
+@charset "UTF-8";
+/* 전체 레이아웃 및 기본 폰트 */
+
+@import url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.css");
+/* 기본 리셋 */
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* 네이게이션 커서/포인터-Positioning */
+:root {
+  --spring-easing: linear(
+    0,
+    0.0018,
+    0.0069 1.15%,
+    0.026 2.3%,
+    0.0637,
+    0.1135 5.18%,
+    0.2229 7.78%,
+    0.5977 15.84%,
+    0.7014,
+    0.7904,
+    0.8641,
+    0.9228,
+    0.9676 28.8%,
+    1.0032 31.68%,
+    1.0225,
+    1.0352 36.29%,
+    1.0431 38.88%,
+    1.046 42.05%,
+    1.0448 44.35%,
+    1.0407 47.23%,
+    1.0118 61.63%,
+    1.0025 69.41%,
+    0.9981 80.35%,
+    0.9992 99.94%
+  );
+}
+
+.anchored-pointer {
+  position: absolute;
+  position-anchor: --selected;
+  top: anchor(top);
+  left: anchor(left);
+  width: 3.5rem;
+  height: 6rem;
+  margin-top: calc(anchor-size(height) * -0.4);
+  display: block;
+  background: none;
+  border: 1px solid white;
+  border-radius: 3rem;
+  transition: all 1s var(--spring-easing);
+  filter: drop-shadow(0 3px 6px gray);
+  pointer-events: none;
+  overflow: hidden;
+  backdrop-filter: url(#filter);
+}
+
+.anchored-pointer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      1rem 10rem ellipse at 50% 50% in oklch,
+      oklch(100% 0 0 / 0%) 10% 50%,
+      150%,
+      oklch(100% 0 0 / 100%) 175% 165%
+    ),
+    radial-gradient(
+      2rem 3.5rem ellipse at 50% 50% in oklch,
+      oklch(0% 0 0 / 0%) 80%,
+      gray 150%
+    );
+}
+
+/* 상단 네비게이션 고정 및 중앙 정렬 카드형 */
+nav {
+  position: fixed; /* 화면 스크롤 시 고정 */
+  top: 3rem; /* 상단에서 3rem 아래 */
+  left: 50%; /* 가로 중앙 기준 */
+  transform: translateX(-50%); /* 진짜 중앙 맞춤 */
+  display: flex; /* 가로 Flex 배치 */
+  z-index: 1000; /* 다른 요소보다 위 */
+
+  background: #fff; /* 흰색 배경 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* 그림자 */
+  padding: 0 30px;
+  /* 내부 여백 (상하 10px, 좌우 30px) */
+}
+
+/* 메뉴 리스트 가로 중앙 정렬 */
+nav .gnb-top {
+  display: flex; /* 가로 Flex 배치 */
+  justify-content: center; /* 중앙 정렬 */
+  gap: 2.5rem; /* 메뉴 아이템 사이 간격 */
+  list-style: none; /* 기본 점 제거 */
+  padding: 0 0;
+  /* 상하 패딩 */
+}
+nav .gnb-top .gnb-btn,
+.selected {
+  display: flex;
+  justify-content: center; /* 수평 중앙 */
+  align-items: center; /* 수직 중앙 */
+  font-size: 15px;
+  width: 55px;
+  height: 55px;
+}
+/* 메뉴 링크 스타일 */
+nav .gnb-btn a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  transition: color 0.3s;
+  width: 40px;
+  height: 40px;
+}
+
+/* ::after 가상 요소 */
+nav .gnb-btn a::after {
+  content: "";
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 500;
+  transition: color 0.3s;
+  width: 40px;
+  height: 40px;
+}
+/* hover 시 글씨 숨김 */
+nav .gnb-btn a:hover {
+  color: transparent;
+}
+
+/* about 첫페이지로 이동하는 버튼 */
+
+.circle-btn {
+  position: absolute; /* 부모 기준 절대 위치 */
+  top: 30px;
+  right: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #0088a6;
+  color: #0088a6;
+  font-weight: 600;
+  text-decoration: none;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 136, 166, 0.25);
+  transition: all 0.4s ease;
+  z-index: 1000; /* 다른 콘텐츠 위로 */
+}
+
+/* 텍스트 전환 효과 */
+.circle-btn .text {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.circle-btn .arrow {
+  position: absolute;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.4s ease;
+  font-size: 24px;
+}
+
+/* hover 시 효과 */
+.circle-btn:hover {
+  background-color: #0088a6;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 136, 166, 0.35); /* hover 시 그림자 강화 */
+}
+
+.circle-btn:hover .arrow {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.circle-btn:hover .text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 클릭 시 살짝 눌리는 효과 */
+.circle-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 6px rgba(0, 136, 166, 0.25); /* 클릭 시 그림자 약하게 */
+}
+
+/* 커스텀 마우스 커서 */
+
+.wave {
+position: fixed;
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: yellowgreen; */
+
+  pointer-events: none;
+  user-select: none;
+}
+.wave:before,
+.wave:after {
+  position: absolute;
+  content: "";
+  border: 3px solid #0186a6;
+  opacity: 1;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  animation: wave 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.wave:after {
+  animation-delay: -0.4s;
+}
+@keyframes wave {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 좌우 분할 레이아웃 */
+.about2 {
+  /* border: 1px solid rgb(231, 110, 10); */
+
+  position: relative; /* 자식 요소 절대 위치 기준 */
+  display: flex;
+
+  width: 100%;
+  height: 100vh;
+}
+
+/* 좌측 패널 */
+.left-panel {
+  /* border: 1px solid rgb(21, 182, 88); */
+
+  flex: 0 0 35%;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 위쪽 정렬 */
+  /* justify-content: flex-start;  */
+
+  /* 수직 중앙 정렬 */
+  justify-content: center;
+
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 프로필 아바타 */
+.profile-avatar-container {
+  /* border: 1px solid red; */
+
+  width: 530px;
+  height: 530px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 개인 정보 */
+.profile-info {
+  /* border: 1px solid red; */
+  margin-top: 15px;
+  text-align: left;
+  width: 100%;
+  padding: 30px;
+}
+
+.name-ko {
+  font-weight: 700;
+  font-size: 30px;
+  /* margin: 5px 0 20px; */
+  margin-top: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.name-en {
+  font-size: 18px;
+}
+.detail-list {
+  margin-top: 40px;
+  font-size: 20px;
+}
+.detail-list p {
+  margin-top: 10px;
+  font-weight: 500;
+}
+.detail-list strong {
+  font-weight: 600;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+#panel-line img {
+  height: 100%;
+}
+/* 콘텐츠 섹션 */
+.main-area {
+  /* border: 1px solid rgb(53, 208, 255); */
+
+  padding: 0 0 0 100px;
+  flex: 1; /* 좌측 35% 제외 나머지 모두 사용 */
+}
+
+.content-sec {
+  /* border: 1px solid blue; */
+
+  display: grid;
+  /* 2열 2행 */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+
+  gap: 100px;
+  margin: 220px 0;
+}
+.content-sec h2 {
+  width: 366px;
+  color: #0186a6;
+  font-size: 20px;
+  font-weight: 700;
+
+  border-bottom: 2px solid #0186a6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+section {
+  /* border: 1px solid rgb(108, 230, 183); */
+
+  width: 100%;
+}
+section .item {
+  margin-top: 20px;
+}
+section .item .date {
+  font-size: 16px;
+  color: rgba(26, 26, 26, 0.8);
+  margin: 0;
+}
+section .item .detail {
+  font-weight: 500;
+  font-size: 20px;
+  margin: 5px 0 0;
+}
+
+.skill-icons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding-top: 10px;
+}
+.skill-icons img {
+  width: 40px;
+  height: 40px;
+}

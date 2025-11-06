@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>김수현 이력서-About Me2</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/about2-style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff"
+    />
+    <script src="./js/about2-script.js" defer></script>
+  </head>
+  <body>
+    <!-- 마우스 커서 wave -->
+    <div class="wave"></div>
+
+    <!-- 상단 네비게이션 -->
+    <nav>
+      <!-- 네이게이션 커서/포인터 -->
+      <ul class="gnb-top">
+        <li class="gnb-btn">
+          <a href="./home.html" data-hover="./img/hover-icon-home.png">Home</a>
+        </li>
+        <li class="gnb-btn selected">
+          <a href="./about-1.html" data-hover="./img/hover-icon-about.png">
+            About</a
+          >
+        </li>
+        <li class="gnb-btn">
+          <a href="./work.html" data-hover="./img/hover-icon-work.png">Work</a>
+        </li>
+        <li class="gnb-btn">
+          <a href="./contact.html" data-hover="./img/hover-icon-contact.png">Contact</a>
+        </li>
+      </ul>
+      <div class="anchored-pointer"></div>
+    </nav>
+
+    <!-- 전체 레이아웃 컨테이너 -->
+    <div class="about2">
+      <!-- about 첫페이지로 이동하는 버튼 -->
+      <a href="about-1.html" class="circle-btn">
+        <span class="arrow">←</span>
+        <span class="text">Click</span>
+      </a>
+      <!-- 좌측 패널 -->
+      <div class="left-panel">
+        <div class="profile-sec">
+          <div class="profile-avatar-container">
+            <img
+              src="./img/profile-img.png"
+              alt="김수현 프로필 사진"
+              class="profile-img"
+            />
+          </div>
+
+          <div class="profile-info">
+            <p class="name-en">Kim Su Hyun</p>
+            <h1 class="name-ko">김수현</h1>
+            <div class="detail-list">
+              <p><strong>Birth.</strong> 1993.04.10</p>
+              <p><strong>MBTI.</strong> INFP</p>
+              <p><strong>E-Mail.</strong> tngus555@hanmail.net</p>
+              <p><strong>Phone.</strong> 010-2262-6629</p>
+              <p>
+                <strong>Github.</strong>
+                <a
+                  href="https://github.com/Tngus555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >https://github.com/Tngus555</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-line">
+        <img src="./img/about-line.png" alt="panel-line" />
+      </div>
+
+      <!-- 우측 메인 영역 -->
+      <div class="main-area">
+        <!-- 메인 콘텐츠 -->
+        <main class="content-sec">
+          <!-- EXPERIENCE -->
+          <section id="sec-experience">
+            <h2>
+              <span class="icon"
+                ><img src="./img/icon-experience.png" alt="experience"
+              /></span>
+              EXPERIENCE
+            </h2>
+            <div class="item">
+              <p class="date">2022.01.01 ~ 2025.05.08</p>
+              <p class="detail">(주) 경승</p>
+            </div>
+            <div class="item">
+              <p class="date">2016.04.01 ~ 2016.10.01</p>
+              <p class="detail">화정동물 메디컬센터</p>
+            </div>
+            <div class="item">
+              <p class="date">2017.06.07 ~ 2025.02.28</p>
+              <p class="detail">공구우먼</p>
+            </div>
+          </section>
+
+          <!-- EDUCATION -->
+          <section id="sec-education">
+            <h2>
+              <span class="icon"
+                ><img src="./img/icon-education.png" alt="education"
+              /></span>
+              EDUCATION
+            </h2>
+            <div class="item">
+              <p class="date">2022.02</p>
+              <p class="detail">서울디자인 고등학교 졸업 (패션디자인과)</p>
+            </div>
+            <div class="item">
+              <p class="date">2025.09</p>
+              <p class="detail">한국방송통신대학교 졸업 (의류패션학과)</p>
+            </div>
+            <div class="item">
+              <p class="date">2025.05.30 ~ 2025.11.17</p>
+              <p class="detail">Figma 활용 UX/UI 웹디자인&amp;퍼블리셔 수료</p>
+            </div>
+          </section>
+
+          <!-- LICENSE -->
+          <section id="sec-license">
+            <h2>
+              <span class="icon"
+                ><img src="./img/icon-license.png" alt="license"
+              /></span>
+              LICENSE
+            </h2>
+            <div class="item">
+              <p class="date">2010.08.16</p>
+              <p class="detail">뷰티메이크업 3급</p>
+            </div>
+            <div class="item">
+              <p class="date">2011.07.22</p>
+              <p class="detail">컴퓨터그래픽스운용기능사</p>
+            </div>
+            <div class="item">
+              <p class="date">2011.08.12</p>
+              <p class="detail">GTQ 포토샵 1급</p>
+            </div>
+            <div class="item">
+              <p class="date">2012.11.12</p>
+              <p class="detail">자동차운전면허 (2종 보통)</p>
+            </div>
+          </section>
+
+          <!-- SKILLS -->
+          <section id="sec-skills">
+            <h2>
+              <span class="icon"
+                ><img src="./img/icon-skills.png" alt="skills"
+              /></span>
+              SKILLS
+            </h2>
+            <div class="skill-icons">
+              <img src="./img/icon-illustrator.png" alt="Adobe Illustrator" />
+              <img src="./img/icon-photoshop.png" alt="Adobe Photoshop" />
+              <img src="./img/icon-figma.png" alt="Figma" />
+              <img src="./img/icon-code.png" alt="code" />
+            </div>
+          </section>
+        </main>
+      </div>
+      <!-- about2 끝 -->
+    </div>
+  </body>
+</html>

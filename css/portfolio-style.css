@@ -1,0 +1,163 @@
+@charset "UTF-8";
+/* 전체 레이아웃 및 기본 폰트 */
+
+@import url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.css");
+
+/* 기본 리셋 */
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Pretendard", sans-serif;
+  height: 100vh;
+  overflow: hidden; /* 스크롤바 제거 */
+  font-family: Arial, sans-serif;
+  color: white; /* 텍스트 색상 */
+  /* background: #add2db; */
+}
+
+/* 커스텀 마우스 커서 */
+
+.wave {
+position: fixed;
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: yellowgreen; */
+
+  pointer-events: none;
+  user-select: none;
+}
+.wave:before,
+.wave:after {
+  position: absolute;
+  content: "";
+  border: 3px solid #0186a6;
+  opacity: 1;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  animation: wave 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.wave:after {
+  animation-delay: -0.4s;
+}
+@keyframes wave {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* About Me 오버레이 배경 이미지 */
+.text-bg {
+  position: absolute;
+  /* 가로 중앙 정렬 */
+  left: 50%;
+  /* 세로 중앙 정렬을 위한 top과 transform 설정 */
+  top: 50%;
+  /* 이미지 크기의 절반만큼 왼쪽/위로 이동 */
+  transform: translate(-50%, -50%);
+
+  /* 너비와 높이는 이미지 파일 크기에 따라 유지 */
+  width: 100%;
+  height: 100%;
+
+  /* About Me 텍스트 이미지를 설정 */
+  background-image: url("../img/main-bg.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 배경 동영상 스타일 (Z-index: -2) */
+#background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -2;
+  object-fit: cover;
+}
+
+/* 오버레이 컨텐츠 컨테이너 (Z-index: 2. 가장 위에 위치) */
+.overlay-content {
+  position: relative; /* 자식 요소의 absolute 위치 기준점 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2; /* 가장 위에 위치 */
+}
+
+/* 메인 포트폴리오 텍스트 스타일 */
+
+.main-text .name {
+  position: absolute; /* 절대 위치 지정 */
+  font-size: 40px;
+  left: 230px;
+  bottom: 470px;
+}
+
+.main-text h1 {
+  font-size: 150px;
+  font-weight: 500;
+  line-height: 1;
+  color: #1a1a1a;
+}
+.main-text .text1 {
+  position: absolute; /* 절대 위치 지정 */
+  left: 350px;
+  bottom: 510px;
+}
+.main-text .text2 {
+  position: absolute; /* 절대 위치 지정 */
+  right: 350px;
+  bottom: 310px;
+}
+/* Skip 버튼 스타일 (왼쪽 하단 고정) */
+.skip-btn {
+  position: absolute;
+  left: 40px;
+  bottom: 50px;
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 70px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0186a6;
+}
+
+.skip-btn:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* 동영상 종료 후 텍스트 제거 (선택 사항) */
+.content-hidden {
+  display: none;
+}

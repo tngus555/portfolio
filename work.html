@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>김수현 이력서-work</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/work-style.css" />
+    <!-- <link rel="stylesheet" href="./css/work-style1.css" /> -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+
+    <!-- Water Effect Library - PIXI.js v5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.12/pixi.min.js"></script>
+    <script src="./js/work-script1.js" defer></script>
+  </head>
+  <body>
+    <!-- 마우스 커서 wave -->
+    <div class="wave"></div>
+
+    <!-- 상단 네비게이션 -->
+    <nav>
+      <!-- 네이게이션 커서/포인터 -->
+      <ul class="gnb-top">
+        <li class="gnb-btn">
+          <a href="./home.html" data-hover="./img/hover-icon-home.png">Home</a>
+        </li>
+        <li class="gnb-btn">
+          <a href="./about-1.html" data-hover="./img/hover-icon-about.png">
+            About</a
+          >
+        </li>
+        <li class="gnb-btn selected">
+          <a href="./work.html" data-hover="./img/hover-icon-work.png">Work</a>
+        </li>
+        <li class="gnb-btn">
+          <a href="./contact.html" data-hover="./img/hover-icon-contact.png"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <div class="anchored-pointer"></div>
+    </nav>
+
+    <!-- section의 네비게이션 -->
+    <nav class="section-nav">
+      <a
+        href="#main-content"
+        class="nav-item active"
+        data-target="main-content"
+      >
+        <span>Projects</span>
+      </a>
+      <a href="#landing-page" class="nav-item" data-target="landing-page">
+        <span>Landing</span>
+      </a>
+      <a href="#banner" class="nav-item" data-target="banner">
+        <span>Banner</span>
+      </a>
+    </nav>
+
+    <!-- main-content 시작 -->
+
+    <section id="main-content">
+      <!-- 5. 배경 물방울 SVG -->
+      <div class="background-container">
+        <div class="big-waterdrop"></div>
+        <div class="small-waterdrop"></div>
+      </div>
+
+      <div id="slider-btn">
+        <button class="active" data-slide="0"></button>
+        <button data-slide="1"></button>
+        <button data-slide="2"></button>
+        <button data-slide="3"></button>
+        <button data-slide="4"></button>
+        <button data-slide="5"></button>
+      </div>
+
+      <div class="left-panel">
+        <!-- 6. Samsung Galaxy Tab S3.png 이미지 -->
+        <div class="tablet-image-container">
+          <img
+            src="./img/Samsung-Galaxy Tab.png"
+            alt="Samsung Galaxy Tab S3 Tablet"
+            class="tablet-image"
+          />
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <h1 class="project-title">01. STEINWAY</h1>
+
+        <div class="category-badges">
+          <div class="badge badge-1">리디자인</div>
+          <div class="badge badge-2">웹디자인</div>
+        </div>
+
+        <p class="description">
+          170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이. 조금 더
+          깔끔한 디자인으로 웹 리디자인을 하였습니다.
+        </p>
+
+        <div class="meta-info">
+          팀작업 | <strong>디자인 100%</strong>
+          <br />
+        </div>
+
+        <!-- Tool 아이콘 -->
+        <div class="tool-title">
+          <p>Tool.</p>
+          <div class="tool-list">
+            <img src="./img/icon-photoshop.png" alt="Photoshop" />
+            <img src="./img/icon-illustrator.png" alt="Illustrator" />
+            <img src="./img/icon-figma.png" alt="Figma" />
+          </div>
+        </div>
+
+        <!-- 4. Design & Process 버튼 -->
+        <div class="action-buttons">
+          <button class="action-button" id="design-btn">
+            Design
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </button>
+          <button class="action-button" id="process-btn">
+            Process
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- main-content Overlay -->
+    <!-- Design Overlay Page (class="overlay" -> class="main-overlay") -->
+    <div id="modal-design-concept" class="main-overlay">
+      <div class="overlay-content">
+        <button class="overlay-close-btn" onclick="closeOverlay()">
+          &times;
+        </button>
+        <h2 class="overlay-title">Design</h2>
+      </div>
+    </div>
+
+    <!-- Process Overlay Page (class="overlay" -> class="main-overlay") -->
+    <div id="modal-workflow-process" class="main-overlay">
+      <div class="overlay-content">
+        <button class="overlay-close-btn" onclick="closeOverlay()">
+          &times;
+        </button>
+        <h2 class="overlay-title">Workflow & Process</h2>
+      </div>
+    </div>
+
+    <!-- landing-page 시작 -->
+    <section class="landing-page" id="landing-page">
+      <div class="head">
+        <h2>LANDING PAGE</h2>
+      </div>
+      <div class="slider">
+        <div class="track" id="track">
+          <article class="project-card" data-index="1">
+            <img
+              class="project-card_bg"
+              src="./img/randing-img1-1.png"
+              alt=""
+            />
+            <div class="project-card_content">
+              <div>
+                <p class="project-card_number">1</p>
+                <h3 class="project-card_title">은영이떡볶이</h3>
+                <button class="project-card_btn">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-index="2">
+            <img
+              class="project-card_bg"
+              src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/marketers.webp"
+              alt=""
+            />
+            <div class="project-card_content">
+              <div>
+                <p class="project-card_number">2</p>
+                <h3 class="project-card_title">렌딩페이지 2</h3>
+                <button class="project-card_btn">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card shrink" data-index="3">
+            <img
+              class="project-card_bg"
+              src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/filmmakers.webp"
+              alt=""
+            />
+            <div class="project-card_content">
+              <div>
+                <p class="project-card_number">3</p>
+                <h3 class="project-card_title">렌딩페이지 3</h3>
+                <button class="project-card_btn">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card shrink" data-index="4">
+            <img
+              class="project-card_bg"
+              src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/content-creators.webp"
+              alt=""
+            />
+            <div class="project-card_content">
+              <div>
+                <p class="project-card_number">4</p>
+                <h3 class="project-card_title">렌딩페이지 4</h3>
+                <button class="project-card_btn">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card shrink" data-index="5">
+            <img
+              class="project-card_bg"
+              src="https://cdn-front.freepik.com/home/anon-rvmp/professionals/art-directors.webp"
+              alt=""
+            />
+            <div class="project-card_content">
+              <div>
+                <p class="project-card_number">5</p>
+                <h3 class="project-card_title">렌딩페이지 5</h3>
+                <button class="project-card_btn">Details</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- landing-page overlay -->
+    <div id="image-detail-overlay" class="image-overlay">
+      <div class="overlay-container">
+        <button class="overlay-close-btn" id="image-overlay-close-btn">
+          &times;
+        </button>
+        <div class="image-viewport">
+          <img id="detail-image" src="" alt="Project Detail Image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- BANNER 시작 -->
+    <section class="banner" id="banner">
+      <h1 class="banner-title">BANNER</h1>
+
+      <div class="carousel-container">
+        <button class="nav-button prev" onclick="rotate(-1)">‹</button>
+
+        <div class="carousel" id="carousel">
+          <div class="card" data-index="0">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">YOSIGO</h2>
+                <button class="card-button" onclick="openOverlay(event, 0)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="1">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">BURGERKING</h2>
+                <button class="card-button" onclick="openOverlay(event, 1)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="2">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">PETHROOM</h2>
+                <button class="card-button" onclick="openOverlay(event, 2)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="3">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">서울강남치과</h2>
+                <button class="card-button" onclick="openOverlay(event, 3)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="4">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">KOREAN AIR</h2>
+                <button class="card-button" onclick="openOverlay(event, 4)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="5">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">RNU UP</h2>
+                <button class="card-button" onclick="openOverlay(event, 5)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="6">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">PROJECT 07</h2>
+                <button class="card-button" onclick="openOverlay(event, 6)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="7">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">OFD & STARBUCKS 1</h2>
+                <button class="card-button" onclick="openOverlay(event, 7)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="8">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">OFD & STARBUCKS 2</h2>
+                <button class="card-button" onclick="openOverlay(event, 8)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-index="9">
+            <div class="card-inner">
+              <div class="card-content">
+                <h2 class="card-title">BASKIN ROBBINS</h2>
+                <button class="card-button" onclick="openOverlay(event, 9)">
+                  Design
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-button next" onclick="rotate(1)">›</button>
+      </div>
+    </section>
+
+    <div class="overlay" id="overlay" onclick="closeOverlay(event)">
+      <div class="overlay-content" onclick="event.stopPropagation()">
+        <button class="overlay-close" onclick="closeOverlay()">&times;</button>
+
+        <div class="overlay-left">
+          <div>
+            <h2 class="overlay-logo" id="overlayTitle">YOSIGO</h2>
+            <span class="overlay-tag">#Graphic</span>
+            <p class="overlay-description" id="overlayDescription">
+              Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간, 요시고
+              사진전에서 만나는 휴식의 순간을 표현했습니다.
+            </p>
+          </div>
+
+          <div class="overlay-info">
+            <div class="overlay-info-item">
+              <div class="overlay-info-label">Production Period.</div>
+              <div class="overlay-info-value" id="overlayPeriod">3 Hours</div>
+            </div>
+            <div class="overlay-info-item">
+              <div class="overlay-info-label">Tool.</div>
+              <div class="overlay-tools" id="overlayTools">
+                <div class="overlay-tool-icon">Ps</div>
+                <div class="overlay-tool-icon">Ai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay-right" id="overlayImages">
+          <div class="overlay-images-left">
+            <div class="overlay-image-container image-1">
+              <img src="./img/bnr-br (2).png" alt="bnr-br" />
+            </div>
+            <div class="overlay-image-container image-2">
+              <img src="./img/bnr-br (1).png" alt="bnr-br" />
+            </div>
+          </div>
+          <div class="overlay-images-right">
+            <div class="overlay-image-container image-3">
+              <img src="./img/bnr-br.png" alt="bnr-br" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
