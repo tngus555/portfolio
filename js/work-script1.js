@@ -143,7 +143,7 @@ const sliderData = [
     badges: ["리디자인", "웹디자인"],
     description:
       "170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이. 조금 더 깔끔한 디자인으로 웹 리디자인을 하였습니다.",
-    meta: "팀작업 | <strong>디자인 100%</strong>",
+    meta: "팀 프로젝트 작업 | <strong>디자인 100%</strong>",
     tools: ["icon-photoshop.png", "icon-illustrator.png", "icon-figma.png"],
     image: "./img/STEINWAY-img.png",
     designUrl:
@@ -164,11 +164,10 @@ const sliderData = [
   },
   {
     title: "03. BRANDING",
-    badges: ["브랜딩", "아이덴티티", "패키지"],
-    description:
-      "브랜드의 가치와 비전을 시각적으로 표현한 통합 브랜딩 프로젝트입니다.",
-    meta: "팀작업 | <strong>디자인 80%</strong>",
-    tools: ["icon-illustrator.png", "icon-photoshop.png"],
+    badges: ["패션 디자인"],
+    description: "패션 디자인 프로젝트입니다.",
+    meta: "개인 작업 | <strong>디자인 100%</strong>",
+    tools: ["icon-photoshop.png", "icon-illustrator.png"],
     image: "./img/Samsung-Galaxy Tab.png",
     designUrl: "https://example.com/branding",
     processImage: "./img/branding-process.png",
