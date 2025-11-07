@@ -1,16 +1,4 @@
 @charset "UTF-8";
-/* 전체 레이아웃 및 기본 폰트 */
-
-@import url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.css");
-
-/* 기본 리셋 */
-*,
-::before,
-::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html,
 body {
@@ -25,7 +13,7 @@ body {
 /* 커스텀 마우스 커서 */
 
 .wave {
-position: fixed;
+  position: fixed;
   width: 50px;
   height: 50px;
   left: 50%;
@@ -115,13 +103,13 @@ position: fixed;
 
 .main-text .name {
   position: absolute; /* 절대 위치 지정 */
-  font-size: 40px;
+  font-size: 2.083vw;
   left: 230px;
   bottom: 470px;
 }
 
 .main-text h1 {
-  font-size: 150px;
+  font-size: 7.813vw;
   font-weight: 500;
   line-height: 1;
   color: #1a1a1a;
@@ -148,7 +136,7 @@ position: fixed;
   border-radius: 70px;
   cursor: pointer;
   transition: background 0.3s;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: 600;
   color: #0186a6;
 }

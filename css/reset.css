@@ -85,7 +85,9 @@ button,
 input,
 select,
 textarea,
-video {
+video,
+::before,
+::after {
   margin: 0;
   padding: 0;
   border: 0;
