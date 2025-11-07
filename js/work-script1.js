@@ -139,7 +139,7 @@ const contents = [
 // 2. Main Content Slider Data (전역 변수로 선언)
 const sliderData = [
   {
-    title: "01. STEINWAY",
+    title: "1. STEINWAY",
     badges: ["리디자인", "웹디자인"],
     description:
       "170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이. 조금 더 깔끔한 디자인으로 웹 리디자인을 하였습니다.",
@@ -151,7 +151,7 @@ const sliderData = [
     processImage: "./img/STEINWAY-process.png",
   },
   {
-    title: "02. 상식팡",
+    title: "2. 상식팡",
     badges: ["앱 디자인"],
     description:
       "상식이 자라면 세상도 자란다. 상식을 키우는 앱 프로젝트입니다.",
@@ -163,7 +163,7 @@ const sliderData = [
     processImage: "./img/CommonSense-process.png",
   },
   {
-    title: "03. BASKINROBBINS",
+    title: "3. BASKIN ROBBINS",
     badges: ["리디자인", "웹디자인"],
     description:
       "귀여운 일러스트와 상큼한 컬러감의 배스킨라빈스 리디자인 프로젝트입니다.",
@@ -174,7 +174,7 @@ const sliderData = [
     processImage: "./img/branding-process.png",
   },
   {
-    title: "04. MOBILE APP",
+    title: "4. MOBILE APP",
     badges: ["모바일", "앱디자인", "프로토타입"],
     description:
       "직관적인 인터페이스와 사용자 친화적인 모바일 앱 디자인입니다.",
@@ -185,7 +185,7 @@ const sliderData = [
     processImage: "./img/mobile-process.png",
   },
   {
-    title: "05. EDITORIAL",
+    title: "5. EDITORIAL",
     badges: ["에디토리얼", "출판", "레이아웃"],
     description:
       "가독성과 심미성을 모두 갖춘 에디토리얼 디자인 프로젝트입니다.",
@@ -196,7 +196,7 @@ const sliderData = [
     processImage: "./img/editorial-process.png",
   },
   {
-    title: "06. FASHION DESIGN",
+    title: "6. FASHION DESIGN",
     badges: ["패션 디자인"],
     description: "패션 디자인 프로젝트입니다.",
     meta: "개인 작업 | <strong>디자인 100%</strong>",
