@@ -135,41 +135,26 @@ document.addEventListener("DOMContentLoaded", () => {
     void main() {
       vec2 uv = v_texCoord;
       
-      // 멜팅 효과 - 시간에 따라 UV를 아래로 왜곡
-      float meltAmount = noise(vec2(uv.x * 5.0, u_time * 0.3)) * 0.15;
-      float verticalMelt = smoothstep(0.3, 1.0, uv.y) * meltAmount;
-      uv.y += verticalMelt;
+
       
-      // 드리핑 - 세로로 물결치는 효과
-      float drip = sin(uv.x * 10.0 + u_time * 0.5) * 0.02;
-      uv.y += drip * smoothstep(0.5, 1.0, uv.y);
+                    // 멜팅 효과 - 시간에 따라 UV를 아래로 왜곡
+      
 
-      // 호버 효과
-      if (u_hover > 0.0) {
-        vec2 mouseUV = u_mouse / u_resolution;
-        vec2 delta = uv - mouseUV;
-        float dist = length(delta);
-        
-        // 웨이브 효과 (두 겹)
-        float wave1 = sin(dist * 30.0 - u_time * 12.0) * 0.015;
-        float wave2 = sin(dist * 50.0 - u_time * 20.0) * 0.01;
-        
-        // 마그네틱 디스토션
-        float magneticRadius = 0.3;
-        if (dist < magneticRadius) {
-          float force = (magneticRadius - dist) / magneticRadius;
-          force = force * force * 0.05;
-          uv += normalize(delta) * force * u_hover;
-        }
-        
-        // 웨이브 적용
-        uv += normalize(delta) * (wave1 + wave2) * u_hover;
-        
-        // 펄스 효과
-        float pulse = sin(u_time * 10.0) * 0.003;
-        uv += vec2(pulse * cos(u_time), pulse * sin(u_time)) * u_hover;
-      }
+      
+                    float meltAmount = (noise(vec2(uv.x * 5.0, u_time * 0.3)) - 0.5) * 0.15; // -0.5를 추가하여 효과를 중앙 정렬
+      
 
+      
+                    uv.y += meltAmount; // smoothstep을 제거하여 전체 영역에 효과 적용
+      
+          
+      
+          // 드리핑 - 세로로 물결치는 효과
+      
+          float drip = sin(uv.x * 10.0 + u_time * 0.5) * 0.02;
+      
+          uv.y += drip; // smoothstep을 제거하여 전체 영역에 효과 적용
+      
       // 텍스처 샘플링
       vec4 color = texture2D(u_texture, uv);
       
@@ -242,8 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 유니폼 위치
   const timeLocation = gl.getUniformLocation(program, "u_time");
   const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-  const mouseLocation = gl.getUniformLocation(program, "u_mouse");
-  const hoverLocation = gl.getUniformLocation(program, "u_hover");
 
   // 텍스처 로드
   const texture = gl.createTexture();
@@ -272,45 +255,17 @@ document.addEventListener("DOMContentLoaded", () => {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
   };
 
-  // 마우스 추적
-  let mouseX = 0;
-  let mouseY = 0;
-  let isHovering = false;
-  let hoverAmount = 0;
 
-  textBg.addEventListener("mouseenter", () => {
-    isHovering = true;
-    textBg.style.transform = "translate(-50%, -50%) scale(1.05)";
-  });
 
-  textBg.addEventListener("mouseleave", () => {
-    isHovering = false;
-    textBg.style.transform = "translate(-50%, -50%) scale(1)";
-  });
-
-  textBg.addEventListener("mousemove", (e) => {
-    const rect = textBg.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = rect.height - (e.clientY - rect.top);
-  });
-
+          
   // 애니메이션 루프
   let time = 0;
   function render() {
     time += 0.016;
 
-    // 호버 애니메이션
-    if (isHovering && hoverAmount < 1) {
-      hoverAmount = Math.min(1, hoverAmount + 0.05);
-    } else if (!isHovering && hoverAmount > 0) {
-      hoverAmount = Math.max(0, hoverAmount - 0.05);
-    }
-
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.uniform1f(timeLocation, time);
     gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-    gl.uniform2f(mouseLocation, mouseX, mouseY);
-    gl.uniform1f(hoverLocation, hoverAmount);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     requestAnimationFrame(render);
