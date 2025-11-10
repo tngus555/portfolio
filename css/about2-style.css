@@ -360,8 +360,8 @@ nav .gnb-btn a:hover {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, auto);
 
-  gap: 100px;
-  margin: 220px 0;
+  gap: 70px;
+  margin: 160px 0;
 }
 .content-sec h2 {
   width: 366px;

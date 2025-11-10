@@ -85,16 +85,16 @@ const contents = [
     },
   },
   {
-    title: "PROJECT 07",
+    title: "SKULLPIG",
     tag: "#Graphic",
     description:
       "독창적인 일러스트레이션으로 브랜드 스토리를 표현한 프로젝트입니다.",
     period: "3 Hours",
     tools: ["Ai", "Ps"],
     images: {
-      image1: "./img/bnr-br (2).png",
-      image2: "./img/bnr-br (1).png",
-      image3: "./img/Samsung-Galaxy Tab.png",
+      image1: "./img/skullpig-banner (1).png",
+      image2: "./img/skullpig-banner (2).png",
+      image3: "./img/skullpig-banner (3).png",
     },
   },
   {
