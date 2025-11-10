@@ -210,8 +210,8 @@ const sliderData = [
 // 4. Landing Page Detail Image Data (각 project-card의 detail 이미지 경로)
 
 const landingPageDetailImages = [
-  "./img/randing-img1.png", // data-index="1"
-  "./img/landing-detail-2.jpg", // data-index="2"
+  "./img/Lending-Page-EunyoungTteokbokki.png", // data-index="1"
+  "./img/lending-page-kuoca.png", // data-index="2"
   "./img/landing-detail-3.jpg", // data-index="3"
   "./img/landing-detail-4.jpg", // data-index="4"
   "./img/landing-detail-5.jpg", // data-index="5"
