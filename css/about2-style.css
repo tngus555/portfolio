@@ -262,27 +262,18 @@ nav .gnb-btn a:hover {
 
 /* 좌측 패널 */
 .left-panel {
-  /* border: 1px solid rgb(21, 182, 88); */
-
   flex: 0 0 35%;
   color: #1a1a1a;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 위쪽 정렬 */
-  /* justify-content: flex-start;  */
-
-  /* 수직 중앙 정렬 */
   justify-content: center;
-
   position: relative;
   box-sizing: border-box;
 }
 
 /* 프로필 아바타 */
 .profile-avatar-container {
-  /* border: 1px solid red; */
-
   width: 530px;
   height: 530px;
   display: flex;
@@ -346,22 +337,15 @@ nav .gnb-btn a:hover {
 }
 /* 콘텐츠 섹션 */
 .main-area {
-  /* border: 1px solid rgb(53, 208, 255); */
-
   padding: 0 0 0 100px;
-  flex: 1; /* 좌측 35% 제외 나머지 모두 사용 */
 }
 
 .content-sec {
-  /* border: 1px solid blue; */
-
   display: grid;
-  /* 2열 2행 */
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, auto);
-
-  gap: 70px;
-  margin: 160px 0;
+  gap: 100px;
+  margin: 180px 0;
 }
 .content-sec h2 {
   width: 366px;
