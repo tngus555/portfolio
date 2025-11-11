@@ -722,4 +722,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+  navItems.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      navItems.forEach((nav) => nav.classList.remove("active"));
+      this.classList.add("active");
+
+      const targetId = this.getAttribute("data-target");
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        // 부드러운 스크롤을 위한 커스텀 함수
+        const startPosition = window.pageYOffset;
+        const targetPosition = targetElement.offsetTop;
+        const distance = targetPosition - startPosition;
+        const duration = 1200; // 1.2초 (더 느리게)
+        let start = null;
+
+        function animation(currentTime) {
+          if (start === null) start = currentTime;
+          const timeElapsed = currentTime - start;
+          const progress = Math.min(timeElapsed / duration, 1);
+
+          // easeInOutCubic 이징 함수로 더 부드럽게
+          const ease =
+            progress < 0.5
+              ? 4 * progress * progress * progress
+              : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+          window.scrollTo(0, startPosition + distance * ease);
+
+          if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+          }
+        }
+
+        requestAnimationFrame(animation);
+      }
+    });
+  });
 });
