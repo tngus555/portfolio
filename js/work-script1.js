@@ -208,17 +208,15 @@ const sliderData = [
 ];
 
 // 4. Landing Page Detail Image Data (각 project-card의 detail 이미지 경로)
-
 const landingPageDetailImages = [
-  "./img/Lending-Page-EunyoungTteokbokki.png", // data-index="1"
-  "./img/lending-page-kuoca.png", // data-index="2"
-  "./img/landing-detail-3.jpg", // data-index="3"
-  "./img/landing-detail-4.jpg", // data-index="4"
-  "./img/landing-detail-5.jpg", // data-index="5"
+  "./img/Lending-Page-EunyoungTteokbokki.png",
+  "./img/lending-page-kuoca.png",
+  "./img/landing-detail-3.jpg",
+  "./img/landing-detail-4.jpg",
+  "./img/landing-detail-5.jpg",
 ];
 
 // 5. Landing Page Image Detail Overlay Functions
-
 function openImageDetailOverlay(imagePath) {
   const overlay = document.getElementById("image-detail-overlay");
   const detailImage = document.getElementById("detail-image");
@@ -226,7 +224,6 @@ function openImageDetailOverlay(imagePath) {
   if (overlay && detailImage) {
     detailImage.src = imagePath;
     overlay.classList.add("active");
-    // 배경 스크롤 방지
     document.body.style.overflow = "hidden";
   }
 }
@@ -235,16 +232,15 @@ function closeImageDetailOverlay() {
   const overlay = document.getElementById("image-detail-overlay");
   if (overlay) {
     overlay.classList.remove("active");
-    // 배경 스크롤 복원
     document.body.style.overflow = "";
   }
 }
+
 // Water ripple effect variables
 let waterEffect = null;
 let displacementSprite = null;
 let displacementFilter = null;
 let pixiApp = null;
-
 let currentSlide = 0;
 
 // 3. Banner 캐러셀 함수 (전역 함수로 선언)
@@ -301,11 +297,11 @@ function updateCarousel() {
     const z = Math.cos(rad) * distance - distance;
 
     card.style.transform = `
-             translate(-50%, -50%)
-             translate3d(${x}px, 0, ${z}px)
-             rotateY(${rotateY}deg)
-             scale(${scale})
-             `;
+      translate(-50%, -50%)
+      translate3d(${x}px, 0, ${z}px)
+      rotateY(${rotateY}deg)
+      scale(${scale})
+    `;
     card.style.zIndex = zIndex;
     card.style.opacity = opacity;
   });
@@ -322,10 +318,8 @@ function openOverlay(event, index) {
   const content = contents[index];
 
   document.getElementById("overlayTitle").textContent = content.title;
-
   const tagElement = document.querySelector(".overlay-tag");
   tagElement.textContent = content.tag;
-
   document.getElementById("overlayDescription").textContent =
     content.description;
   document.getElementById("overlayPeriod").textContent = content.period;
@@ -365,12 +359,10 @@ function closeOverlay(event) {
   }
 }
 
-// 4. Main Content Slider 함수 (전역 함수로 선언)
+// 4. Main Content Slider 함수
 function updateSlide(index) {
   currentSlide = index;
   const data = sliderData[index];
-
-  console.log("Current Slide:", currentSlide);
 
   document.querySelector(".project-title").textContent = data.title;
   document.querySelector(".description").textContent = data.description;
@@ -397,8 +389,6 @@ function updateSlide(index) {
 
 function updateTabletImage(imageUrl) {
   const container = document.querySelector(".tablet-image-container");
-
-  console.log("Updating image without water effect:", imageUrl);
 
   if (pixiApp) {
     try {
@@ -429,19 +419,6 @@ function updateTabletImage(imageUrl) {
   existingImg.style.objectFit = "contain";
 }
 
-function initWaterEffect(container, imageUrl) {
-  try {
-    console.log("Initializing PIXI app...");
-  } catch (error) {
-    console.error("Water effect error:", error);
-    const existingImg = container.querySelector(".tablet-image");
-    if (existingImg) {
-      existingImg.style.display = "block";
-      existingImg.src = imageUrl;
-    }
-  }
-}
-
 function attachOverlayButtonEvents() {
   const designBtn = document.getElementById("design-btn");
   const processBtn = document.getElementById("process-btn");
@@ -456,22 +433,14 @@ function attachOverlayButtonEvents() {
   processBtn.parentNode.replaceChild(newProcessBtn, processBtn);
 
   newDesignBtn.addEventListener("click", () => {
-    console.log("Design button clicked, currentSlide:", currentSlide);
     const data = sliderData[currentSlide];
-    console.log("Design URL:", data.designUrl);
-
-    // 새 탭에서 사이트 열기
     window.open(data.designUrl, "_blank");
   });
 
   newProcessBtn.addEventListener("click", () => {
-    console.log("Process button clicked, currentSlide:", currentSlide);
     const data = sliderData[currentSlide];
-    console.log("Process image:", data.processImage);
-
     const overlayContent = processOverlay.querySelector(".overlay-content");
 
-    // 기존 이미지 제거
     const existingImg = overlayContent.querySelector(
       ".process-image-container"
     );
@@ -479,7 +448,6 @@ function attachOverlayButtonEvents() {
       existingImg.remove();
     }
 
-    // 이미지 컨테이너 생성
     const imageContainer = document.createElement("div");
     imageContainer.className = "process-image-container";
 
@@ -506,11 +474,8 @@ function attachOverlayButtonEvents() {
   }
 }
 
-// 5. DOMContentLoaded (초기화 및 나머지 로직)
+// 5. DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
-  const designBtn = document.getElementById("design-btn");
-  const processBtn = document.getElementById("process-btn");
-
   const processOverlay = document.getElementById("modal-process-concept");
 
   function toggleOverlay(overlay, isOpen) {
@@ -570,8 +535,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  console.log("DOMContentLoaded - Starting initialization");
-
   updateTabletImage(sliderData[0].image);
 
   const gnbBtn = document.querySelectorAll(".gnb-btn");
@@ -601,7 +564,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedBtn) {
           selectedBtn.style.anchorName = "";
         }
-
         button.style.anchorName = "--selected";
       }
     };
@@ -652,23 +614,17 @@ document.addEventListener("DOMContentLoaded", () => {
       cards.forEach((c) => c.classList.remove("active", "prev", "shrink"));
 
       card.classList.add("active");
-      // 'active' 카드 외에 'prev'(450px) 클래스를 부여할 카드의 인덱스를 저장합니다.
       let prevIndex = -1;
 
-      // 1. 현재 카드가 첫 번째(#1) 카드가 아닌 경우, 앞 카드(index-1)에 'prev'를 부여합니다.
       if (index > 0) {
-        cards[index - 1].classList.add("prev"); // prev = 450px
+        cards[index - 1].classList.add("prev");
         prevIndex = index - 1;
-      }
-      // 2. 현재 카드가 첫 번째(#1, index=0) 카드의 경우, 뒷 카드(index+1)에 'prev'를 부여합니다. (사용자 요청 사항)
-      else if (index === 0 && cards.length > 1) {
-        cards[index + 1].classList.add("prev"); // Card #2 (index 1) now gets 'prev' (450px)
+      } else if (index === 0 && cards.length > 1) {
+        cards[index + 1].classList.add("prev");
         prevIndex = index + 1;
       }
 
-      // 나머지 카드는 'shrink'(90px) 클래스를 부여합니다.
       cards.forEach((c, i) => {
-        // 'active' 카드(i === index)와 'prev' 카드(i === prevIndex)는 제외합니다.
         if (i !== index && i !== prevIndex) {
           c.classList.add("shrink");
         }
@@ -683,7 +639,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       navItems.forEach((nav) => nav.classList.remove("active"));
-
       this.classList.add("active");
 
       const targetId = this.getAttribute("data-target");
@@ -716,9 +671,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 6. Landing Page Detail Button Event Listeners
+  // 마우스 휠 이벤트 추가 - BANNER 섹션에서만 작동
+  const bannerSection = document.querySelector(".banner");
+  if (bannerSection) {
+    bannerSection.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
 
-  // 오버레이 닫기 버튼 이벤트
+        if (e.deltaY > 0) {
+          rotate(1);
+        } else if (e.deltaY < 0) {
+          rotate(-1);
+        }
+      },
+      { passive: false }
+    );
+  }
+
+  // 6. Landing Page Detail Button Event Listeners
   const imageOverlayCloseBtn = document.getElementById(
     "image-overlay-close-btn"
   );
@@ -726,28 +697,23 @@ document.addEventListener("DOMContentLoaded", () => {
     imageOverlayCloseBtn.addEventListener("click", closeImageDetailOverlay);
   }
 
-  // 오버레이 배경 클릭 시 닫기 이벤트
   const imageDetailOverlay = document.getElementById("image-detail-overlay");
   if (imageDetailOverlay) {
     imageDetailOverlay.addEventListener("click", (event) => {
-      // 클릭된 요소가 오버레이 자체일 때만 닫기
       if (event.target.id === "image-detail-overlay") {
         closeImageDetailOverlay();
       }
     });
   }
 
-  // project-card의 Detail 버튼 클릭 이벤트
   const detailButtons = document.querySelectorAll(".project-card_btn");
   detailButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      event.stopPropagation(); // 불필요한 이벤트 버블링 방지
+      event.stopPropagation();
 
-      // 부모 .project-card에서 data-index 가져오기
       const card = button.closest(".project-card");
       const index = parseInt(card.getAttribute("data-index"));
 
-      // 이미지 경로 찾기 (data-index 1부터 시작 -> 배열 인덱스 0부터 시작)
       if (index >= 1 && index <= landingPageDetailImages.length) {
         const imagePath = landingPageDetailImages[index - 1];
         openImageDetailOverlay(imagePath);
