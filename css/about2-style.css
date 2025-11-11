@@ -273,15 +273,17 @@ nav .gnb-btn a:hover {
 }
 
 /* 프로필 아바타 */
-.profile-avatar-container {
-  width: 530px;
-  height: 530px;
-  display: flex;
-  align-items: center;
+.profile-sec{
   justify-content: center;
-  margin-bottom: 30px;
-  position: relative;
-  overflow: hidden;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.profile-avatar-container {
+  width: 400px;
+  height: 400px;
+
 }
 
 .profile-img {

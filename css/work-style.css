@@ -447,6 +447,7 @@ nav .gnb-btn a:hover {
   font-size: 20px;
   max-width: 520px;
   margin-bottom: 25px;
+  white-space: pre-line;
 }
 
 .meta-info {
@@ -1106,6 +1107,7 @@ nav .gnb-btn a:hover {
   font-size: 17px;
   margin-bottom: 50px;
   font-weight: 400;
+  white-space: pre-line;
 }
 
 .overlay-info {

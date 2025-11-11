@@ -10,7 +10,7 @@ const contents = [
     title: "YOSIGO",
     tag: "#Graphic",
     description:
-      "Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간, 요시고 사진전에서 만나는 휴식의 순간을 표현했습니다.",
+      "Yosigo 사진전. 푸른 물결 속에서 잠시 쉬어가는 시간,\n요시고 사진전에서 만나는 휴식의 순간을 표현했습니다.",
     period: "3 Hours",
     tools: ["Ps", "Ai"],
     images: {
@@ -23,7 +23,7 @@ const contents = [
     title: "BURGERKING",
     tag: "#Graphic",
     description:
-      "화끈한 멕시코의 매운 맛을 느낄 수 있는 텍사스 칠리 와퍼 베너입니다",
+      "화끈한 멕시코의 매운 맛을 느낄 수 있는 텍사스 칠리 와퍼 베너입니다.",
     period: "3 Hours",
     tools: ["Ai", "Ps"],
     images: {
@@ -49,7 +49,7 @@ const contents = [
     title: "서울강남치과",
     tag: "#Graphic",
     description:
-      "누런 치아를 환한 화이트 치아로 변화시켜주는 '화이트 스마일 프로젝트' 이벤트 배너입니다. 혜택 정보를 강조하고, 간편 상담을 자연스럽게 유도할 수 있도록 디자인했습니다.",
+      "누런 치아를 환한 화이트 치아로 변화시켜주는 '화이트 스마일 프로젝트' 이벤트 배너입니다.\n혜택 정보를 강조하고, 간편 상담을 자연스럽게 유도할 수 있도록 디자인했습니다.",
     period: "3 Hours",
     tools: ["InD", "Ps"],
     images: {
@@ -62,7 +62,7 @@ const contents = [
     title: "KOREAN AIR",
     tag: "#Graphic",
     description:
-      "얼리버드 고객에게 다양한 혜택을 제공하는 항공권 이벤트 배너입니다. 티켓 디자인을 활용해 여행을 떠나고 싶은 설렘을 담았습니다.",
+      "얼리버드 고객에게 다양한 혜택을 제공하는 항공권 이벤트 배너입니다.\n티켓 디자인을 활용해 여행을 떠나고 싶은 설렘을 담았습니다.",
     period: "3 Hours",
     tools: ["Ai", "Ps"],
     images: {
@@ -75,7 +75,7 @@ const contents = [
     title: "RNU UP",
     tag: "#Graphic",
     description:
-      "Running Crew 모집을 위한 배너 디자인입니다. 푸른 잔디와 역동적인 러닝 모델을 통해 활기차고 건강한 이미지를 강조했습니다.",
+      "Running Crew 모집을 위한 배너 디자인입니다.\n푸른 잔디와 역동적인 러닝 모델을 통해 활기차고 건강한 이미지를 강조했습니다.",
     period: "3 Hours",
     tools: ["AE", "Ps"],
     images: {
@@ -142,7 +142,7 @@ const sliderData = [
     title: "1. STEINWAY",
     badges: ["리디자인", "웹디자인"],
     description:
-      "170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이. 조금 더 깔끔한 디자인으로 웹 리디자인을 하였습니다.",
+      "170년 이상 이어온 장인정신과 역사적 가치가 담긴 스타인웨이.\n조금 더 깔끔한 디자인으로 웹 리디자인을 하였습니다.",
     meta: "팀 프로젝트 작업 | <strong>디자인 100%</strong>",
     tools: ["icon-photoshop.png", "icon-illustrator.png", "icon-figma.png"],
     image: "./img/STEINWAY-img.png",
@@ -154,7 +154,7 @@ const sliderData = [
     title: "2. 상식팡",
     badges: ["앱 디자인"],
     description:
-      "상식이 자라면 세상도 자란다. 상식을 키우는 앱 프로젝트입니다.",
+      "상식이 자라면 세상도 자란다.\n상식을 키우는 앱 프로젝트입니다.",
     meta: "팀 프로젝트 작업 | <strong>참여도 25%</strong>",
     tools: ["icon-photoshop.png", "icon-figma.png"],
     image: "./img/CommonSense-img.png",
@@ -737,7 +737,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startPosition = window.pageYOffset;
         const targetPosition = targetElement.offsetTop;
         const distance = targetPosition - startPosition;
-        const duration = 1200; // 1.2초 (더 느리게)
+        const duration = 1000; // 1초 (더 느리게)
         let start = null;
 
         function animation(currentTime) {
