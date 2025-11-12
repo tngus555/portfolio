@@ -6,6 +6,7 @@ body {
   color: #1a1a1a;
   overflow-x: hidden;
   height: 100vh;
+  word-break: keep-all;
 }
 
 /* 네이게이션 커서/포인터-Positioning */
