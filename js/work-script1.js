@@ -212,7 +212,7 @@ const sliderData = [
 const landingPageDetailImages = [
   "./img/Lending-Page-EunyoungTteokbokki.png",
   "./img/lending-page-kuoca.png",
-  "./img/landing-detail-3.jpg",
+  "./img/lending-page-BNR17.png",
   "./img/landing-detail-4.jpg",
   "./img/landing-detail-5.jpg",
 ];
