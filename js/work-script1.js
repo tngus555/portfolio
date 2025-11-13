@@ -100,7 +100,8 @@ const contents = [
   {
     title: "OFD & STARBUCKS Ver.1",
     tag: "#Graphic",
-    description: "콜라보한 배너 디자인으로 빈티지한 감성을 함께 표현한 디자인입니다.",
+    description:
+      "콜라보한 배너 디자인으로 빈티지한 감성을 함께 표현한 디자인입니다.",
     period: "3 Hours",
     tools: ["Ps", "Lr"],
     images: {
