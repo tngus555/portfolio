@@ -88,7 +88,7 @@ const contents = [
     title: "SKULLPIG",
     tag: "#Graphic",
     description:
-      "독창적인 일러스트레이션으로 브랜드 스토리를 표현한 프로젝트입니다.",
+      "BLACK FRIDAY를 맞아, 강렬한 색감을 활용하여 작업한 스컬피그 이벤트 배너 디자인입니다.",
     period: "3 Hours",
     tools: ["Ai", "Ps"],
     images: {
@@ -100,7 +100,7 @@ const contents = [
   {
     title: "OFD & STARBUCKS Ver.1",
     tag: "#Graphic",
-    description: "OLD FERRY DONUT & STARBUCKS |",
+    description: "콜라보한 배너 디자인으로 빈티지한 감성을 함께 표현한 디자인입니다.",
     period: "3 Hours",
     tools: ["Ps", "Lr"],
     images: {
