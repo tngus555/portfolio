@@ -398,15 +398,11 @@ nav .gnb-btn a:hover {
   flex-direction: column;
   justify-content: center;
 }
-
-/* 태블릿 이미지 컨테이너 */
 .tablet-image-container {
   position: absolute;
-  left: 160px;
-
-  /* 큰 물방울 위에 배치 */
+  left: 210px;
   z-index: 5;
-  width: 700px;
+  width: 720px;
   height: auto;
 }
 .tablet-image-container img {

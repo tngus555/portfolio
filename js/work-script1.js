@@ -169,7 +169,7 @@ const sliderData = [
       "귀여운 일러스트와 상큼한 컬러감의 배스킨라빈스 리디자인 프로젝트입니다.",
     meta: "개인 작업 | <strong>디자인 100%</strong>",
     tools: ["icon-photoshop.png", "icon-figma.png"],
-    image: "./img/Samsung-Galaxy Tab.png",
+    image: "./img/bnr-br-main-img.png",
     designUrl:
       "https://www.figma.com/proto/DGCGLrCjLxJEkj1lMePruP/%EB%B2%A0%EC%8A%A4%ED%82%A8%EB%9D%BC%EB%B9%88%EC%8A%A4-%EB%A6%AC%EB%94%94%EC%9E%90%EC%9D%B8-%EA%B9%80%EC%88%98%ED%98%84?page-id=0%3A1&node-id=1-28&viewport=-1337%2C-4232%2C0.68&t=TN0blo5tHj5joOx1-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A28&show-proto-sidebar=1",
     processImage: "./img/branding-process.png",
